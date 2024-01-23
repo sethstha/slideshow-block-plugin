@@ -35,42 +35,98 @@ function Edit({
     postUrl,
     showNav,
     showPag,
-    autoSlide
+    autoSlide,
+    delay,
+    showPostTitle,
+    showPostExcerpt,
+    showPostCategories
   } = attributes;
   const postControlOption = [{
     value: 'default',
     label: 'Current Installation'
   }, {
     value: 'custom',
-    label: 'Custom'
+    label: 'Custom URL'
   }];
   const onPostFromChange = val => {
     setAttributes({
       postFrom: val
     });
   };
+  const onPostURLChange = val => {
+    setAttributes({
+      postUrl: val
+    });
+  };
+  const onPostShowNavChange = val => {
+    setAttributes({
+      showNav: val
+    });
+  };
+  const onPostShowPagChange = val => {
+    setAttributes({
+      showPag: val
+    });
+  };
+  const onPostAutoSlideChange = val => {
+    setAttributes({
+      autoSlide: val
+    });
+  };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)()
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
-    title: "Options"
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Slideshow Options', 'sethstha')
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.SelectControl, {
-    label: "Load Posts from",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Load Posts From', 'sethstha'),
+    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Choose from where you want to show your posts for slideslow. Default will load post from here', 'sethstha'),
     value: postFrom,
     options: postControlOption,
     onChange: onPostFromChange
   }), postFrom === 'custom' ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalInputControl, {
     label: "Url for posts",
-    value: postUrl
+    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enter URL from where you want to fetch your posts example wptavern.com', 'sethstha'),
+    value: postUrl,
+    onChange: onPostURLChange,
+    type: "url"
   }) : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
-    label: "Show Navigation",
-    value: showNav
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show Navigation', 'sethstha'),
+    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enabling this will show arrow navigation to navigate slideslow', 'sethstha'),
+    checked: showNav,
+    onChange: onPostShowNavChange
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
-    label: "Show Pagination",
-    value: showPag
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show Pagination', 'sethstha'),
+    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enabling this will show pagination on slideshow', 'sethstha'),
+    checked: showPag,
+    onChange: onPostShowPagChange
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
-    label: "Auto Slide",
-    value: autoSlide
-  }))), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Posts Slideshow  – hello from the editor!', 'sethstha-slideshow'));
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Auto Slide', 'sethstha'),
+    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enabling this will show auto slide your slideshow', 'sethstha'),
+    checked: autoSlide,
+    onChange: onPostAutoSlideChange
+  }), autoSlide ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalNumberControl, {
+    label: "Delay",
+    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Delay between each slides when auto slide is enabled', 'sethstha'),
+    value: delay,
+    onChange: onPostURLChange
+  }) : null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Slideshow Posts Options', 'sethstha')
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show Post Title', 'sethstha'),
+    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enabling this will show post title on slide', 'sethstha'),
+    checked: showPostTitle,
+    onChange: onPostShowNavChange
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show Post Excerpt', 'sethstha'),
+    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enabling this will show post short description on slide', 'sethstha'),
+    checked: showPostExcerpt,
+    onChange: onPostShowPagChange
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show Post Categories', 'sethstha'),
+    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enabling this will show post categories on slide', 'sethstha'),
+    checked: showPostCategories,
+    onChange: onPostAutoSlideChange
+  }))), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Posts Slideshow  – hello from the editor!', 'sethstha'));
 }
 
 /***/ }),
@@ -178,7 +234,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"sethstha/sethstha-slideshow","version":"0.1.0","title":"Posts Slideshow ","category":"design","icon":"hammer","description":"Shows slideshow of latest blog posts","example":{},"supports":{"html":false},"textdomain":"sethstha-slideshow","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"postFrom":{"type":"string","default":"default"},"postUrl":{"type":"string"},"showNav":{"type":"boolean","default":true},"showPag":{"type":"boolean","default":true},"autoSlide":{"type":"boolean","default":true}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"sethstha/sethstha-slideshow","version":"0.1.0","title":"Posts Slideshow ","category":"design","icon":"hammer","description":"Shows slideshow of latest blog posts","example":{},"supports":{"html":false},"textdomain":"sethstha","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"postFrom":{"type":"string","default":"default"},"postUrl":{"type":"string"},"showNav":{"type":"boolean","default":true},"showPag":{"type":"boolean","default":true},"autoSlide":{"type":"boolean","default":true},"delay":{"type":"number","default":300},"showPostTitle":{"type":"boolean","default":true},"showPostExcerpt":{"type":"boolean","default":true},"showPostCategories":{"type":"boolean","default":true}}}');
 
 /***/ })
 

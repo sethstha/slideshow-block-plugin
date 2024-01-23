@@ -11,7 +11,7 @@
 	"supports": {
 		"html": false
 	},
-	"textdomain": "sethstha-slideshow",
+	"textdomain": "sethstha",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",
@@ -34,6 +34,22 @@
 			"default": true
 		},
 		"autoSlide": {
+			"type": "boolean",
+			"default": true
+		},
+		"delay": {
+			"type": "number",
+			"default": 300
+		},
+		"showPostTitle": {
+			"type": "boolean",
+			"default": true
+		},
+		"showPostExcerpt": {
+			"type": "boolean",
+			"default": true
+		},
+		"showPostCategories": {
 			"type": "boolean",
 			"default": true
 		}
