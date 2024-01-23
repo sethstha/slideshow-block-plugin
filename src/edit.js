@@ -25,7 +25,7 @@ export default function Edit({ attributes, setAttributes }) {
 	const postControlOption = [
 		{
 			value: 'default',
-			label: 'Current Installation',
+			label: 'Default',
 		},
 		{
 			value: 'custom',
@@ -33,24 +33,40 @@ export default function Edit({ attributes, setAttributes }) {
 		},
 	];
 
-	const onPostFromChange = (val) => {
+	const onSlideFromChange = (val) => {
 		setAttributes({ postFrom: val });
 	};
 
-	const onPostURLChange = (val) => {
+	const onSlideURLChange = (val) => {
 		setAttributes({ postUrl: val });
 	};
 
-	const onPostShowNavChange = (val) => {
+	const onSlideShowNavChange = (val) => {
 		setAttributes({ showNav: val });
 	};
 
-	const onPostShowPagChange = (val) => {
+	const onSlideShowPagChange = (val) => {
 		setAttributes({ showPag: val });
 	};
 
-	const onPostAutoSlideChange = (val) => {
+	const onSlideAutoSlideChange = (val) => {
 		setAttributes({ autoSlide: val });
+	};
+
+	const onSlideDelayChange = (val) => {
+		setAttributes({ delay: val });
+	};
+
+	const onPostShowTitleChange = (val) => {
+		setAttributes({ showPostTitle: val });
+	};
+
+	const onPostShowExcerptChange = (val) => {
+		setAttributes({ showPostExcerpt: val });
+	};
+
+	const onPostShowCategoriesChange = (val) => {
+		setAttributes({ showPostCategories: val });
 	};
 
 	return (
@@ -65,7 +81,7 @@ export default function Edit({ attributes, setAttributes }) {
 						)}
 						value={postFrom}
 						options={postControlOption}
-						onChange={onPostFromChange}
+						onChange={onSlideFromChange}
 					/>
 					{postFrom === 'custom' ? (
 						<InputControl
@@ -75,7 +91,7 @@ export default function Edit({ attributes, setAttributes }) {
 								'sethstha'
 							)}
 							value={postUrl}
-							onChange={onPostURLChange}
+							onChange={onSlideURLChange}
 							type="url"
 						/>
 					) : null}
@@ -83,26 +99,30 @@ export default function Edit({ attributes, setAttributes }) {
 						label={__('Show Navigation', 'sethstha')}
 						help={__('Enabling this will show arrow navigation to navigate slideslow', 'sethstha')}
 						checked={showNav}
-						onChange={onPostShowNavChange}
+						onChange={onSlideShowNavChange}
 					/>
 					<ToggleControl
 						label={__('Show Pagination', 'sethstha')}
 						help={__('Enabling this will show pagination on slideshow', 'sethstha')}
 						checked={showPag}
-						onChange={onPostShowPagChange}
+						onChange={onSlideShowPagChange}
 					/>
 					<ToggleControl
 						label={__('Auto Slide', 'sethstha')}
 						help={__('Enabling this will show auto slide your slideshow', 'sethstha')}
 						checked={autoSlide}
-						onChange={onPostAutoSlideChange}
+						onChange={onSlideAutoSlideChange}
 					/>
 					{autoSlide ? (
 						<NumberControl
 							label="Delay"
-							help={__('Delay between each slides when auto slide is enabled', 'sethstha')}
+							help={__(
+								'Delay (in Milliseconds) between each slides when auto slide is enabled',
+								'sethstha'
+							)}
 							value={delay}
-							onChange={onPostURLChange}
+							min={0}
+							onChange={onSlideDelayChange}
 						/>
 					) : null}
 				</PanelBody>
@@ -111,19 +131,19 @@ export default function Edit({ attributes, setAttributes }) {
 						label={__('Show Post Title', 'sethstha')}
 						help={__('Enabling this will show post title on slide', 'sethstha')}
 						checked={showPostTitle}
-						onChange={onPostShowNavChange}
+						onChange={onPostShowTitleChange}
 					/>
 					<ToggleControl
 						label={__('Show Post Excerpt', 'sethstha')}
 						help={__('Enabling this will show post short description on slide', 'sethstha')}
 						checked={showPostExcerpt}
-						onChange={onPostShowPagChange}
+						onChange={onPostShowExcerptChange}
 					/>
 					<ToggleControl
 						label={__('Show Post Categories', 'sethstha')}
 						help={__('Enabling this will show post categories on slide', 'sethstha')}
 						checked={showPostCategories}
-						onChange={onPostAutoSlideChange}
+						onChange={onPostShowCategoriesChange}
 					/>
 				</PanelBody>
 			</InspectorControls>
