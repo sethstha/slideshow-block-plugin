@@ -20,6 +20,7 @@
 	},
 	"dependencies": {
 		"@wordpress/blocks": "^12.26.0",
+		"@wordpress/components": "^25.15.0",
 		"@wordpress/i18n": "^4.49.0"
 	}
 }

@@ -16,5 +16,26 @@
   "editorStyle": "file:./index.css",
   "style": "file:./style-index.css",
   "render": "file:./render.php",
-  "viewScript": "file:./view.js"
+  "viewScript": "file:./view.js",
+  "attributes": {
+    "contentFrom": {
+      "type": "string",
+      "default": "default"
+    },
+    "contentUrl": {
+      "type": "string"
+    },
+    "showNav": {
+      "type": "boolean",
+      "default": true
+    },
+    "showPag": {
+      "type": "boolean",
+      "default": true
+    },
+    "autoSlide": {
+      "type": "boolean",
+      "default": true
+    }
+  }
 }

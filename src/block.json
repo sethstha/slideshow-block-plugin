@@ -32,6 +32,10 @@
 		"showPag": {
 			"type": "boolean",
 			"default": true
+		},
+		"autoSlide": {
+			"type": "boolean",
+			"default": true
 		}
 	}
 }
