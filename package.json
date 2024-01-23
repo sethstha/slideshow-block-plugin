@@ -15,9 +15,6 @@
 		"start": "wp-scripts start --webpack-copy-php"
 	},
 	"devDependencies": {
-		"@types/node": "^20.11.5",
-		"@types/wordpress__block-editor": "^11.5.9",
-		"@types/wordpress__blocks": "^12.5.13",
 		"@wordpress/eslint-plugin": "^17.6.0",
 		"@wordpress/scripts": "^27.0.0"
 	},
