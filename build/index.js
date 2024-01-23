@@ -31,7 +31,11 @@ function Edit({
   setAttributes
 }) {
   const {
-    contentFrom
+    postFrom,
+    postUrl,
+    showNav,
+    showPag,
+    autoSlide
   } = attributes;
   const postControlOption = [{
     value: 'default',
@@ -40,9 +44,9 @@ function Edit({
     value: 'custom',
     label: 'Custom'
   }];
-  const onContentFromChange = val => {
+  const onPostFromChange = val => {
     setAttributes({
-      contentFrom: val
+      postFrom: val
     });
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -51,15 +55,22 @@ function Edit({
     title: "Options"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.SelectControl, {
     label: "Load Posts from",
-    value: contentFrom,
+    value: postFrom,
     options: postControlOption,
-    onChange: onContentFromChange
-  }), contentFrom === 'custom' ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.SelectControl, {
-    label: "Url",
-    value: contentFrom,
-    options: postControlOption,
-    onChange: onContentFromChange
-  }) : null)), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Posts Slideshow  – hello from the editor!', 'sethstha-slideshow'));
+    onChange: onPostFromChange
+  }), postFrom === 'custom' ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalInputControl, {
+    label: "Url for posts",
+    value: postUrl
+  }) : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+    label: "Show Navigation",
+    value: showNav
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+    label: "Show Pagination",
+    value: showPag
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+    label: "Auto Slide",
+    value: autoSlide
+  }))), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Posts Slideshow  – hello from the editor!', 'sethstha-slideshow'));
 }
 
 /***/ }),
@@ -167,7 +178,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"sethstha/sethstha-slideshow","version":"0.1.0","title":"Posts Slideshow ","category":"design","icon":"hammer","description":"Shows slideshow of latest blog posts","example":{},"supports":{"html":false},"textdomain":"sethstha-slideshow","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"contentFrom":{"type":"string","default":"default"},"contentUrl":{"type":"string"},"showNav":{"type":"boolean","default":true},"showPag":{"type":"boolean","default":true},"autoSlide":{"type":"boolean","default":true}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"sethstha/sethstha-slideshow","version":"0.1.0","title":"Posts Slideshow ","category":"design","icon":"hammer","description":"Shows slideshow of latest blog posts","example":{},"supports":{"html":false},"textdomain":"sethstha-slideshow","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"postFrom":{"type":"string","default":"default"},"postUrl":{"type":"string"},"showNav":{"type":"boolean","default":true},"showPag":{"type":"boolean","default":true},"autoSlide":{"type":"boolean","default":true}}}');
 
 /***/ })
 

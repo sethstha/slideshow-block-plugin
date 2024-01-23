@@ -18,11 +18,11 @@
 	"render": "file:./render.php",
 	"viewScript": "file:./view.js",
 	"attributes": {
-		"contentFrom": {
+		"postFrom": {
 			"type": "string",
 			"default": "default"
 		},
-		"contentUrl": {
+		"postUrl": {
 			"type": "string"
 		},
 		"showNav": {

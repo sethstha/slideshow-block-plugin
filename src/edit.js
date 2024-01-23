@@ -1,10 +1,15 @@
 import './editor.scss';
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import React, { SelectControl, PanelBody } from '@wordpress/components';
+import React, {
+	SelectControl,
+	PanelBody,
+	__experimentalInputControl as InputControl,
+	ToggleControl,
+} from '@wordpress/components';
 
 export default function Edit({ attributes, setAttributes }) {
-	const { contentFrom } = attributes;
+	const { postFrom, postUrl, showNav, showPag, autoSlide } = attributes;
 	const postControlOption = [
 		{
 			value: 'default',
@@ -16,8 +21,8 @@ export default function Edit({ attributes, setAttributes }) {
 		},
 	];
 
-	const onContentFromChange = (val) => {
-		setAttributes({ contentFrom: val });
+	const onPostFromChange = (val) => {
+		setAttributes({ postFrom: val });
 	};
 
 	return (
@@ -26,18 +31,14 @@ export default function Edit({ attributes, setAttributes }) {
 				<PanelBody title="Options">
 					<SelectControl
 						label="Load Posts from"
-						value={contentFrom}
+						value={postFrom}
 						options={postControlOption}
-						onChange={onContentFromChange}
+						onChange={onPostFromChange}
 					/>
-					{contentFrom === 'custom' ? (
-						<SelectControl
-							label="Url"
-							value={contentFrom}
-							options={postControlOption}
-							onChange={onContentFromChange}
-						/>
-					) : null}
+					{postFrom === 'custom' ? <InputControl label="Url for posts" value={postUrl} /> : null}
+					<ToggleControl label="Show Navigation" value={showNav} />
+					<ToggleControl label="Show Pagination" value={showPag} />
+					<ToggleControl label="Auto Slide" value={autoSlide} />
 				</PanelBody>
 			</InspectorControls>
 			{__('Posts Slideshow  – hello from the editor!', 'sethstha-slideshow')}
