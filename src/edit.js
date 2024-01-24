@@ -8,6 +8,7 @@ import React, {
 	ToggleControl,
 	__experimentalNumberControl as NumberControl,
 } from '@wordpress/components';
+import { Slider } from './components/slider';
 
 export default function Edit({ attributes, setAttributes }) {
 	const {
@@ -147,7 +148,7 @@ export default function Edit({ attributes, setAttributes }) {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			{__('Posts Slideshow  – hello from the editor!', 'sethstha')}
+			<Slider attributes={attributes} />
 		</div>
 	);
 }
