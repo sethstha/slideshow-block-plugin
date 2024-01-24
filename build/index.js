@@ -145,13 +145,37 @@ function Slider({
     showPostExcerpt,
     showPostCategories
   } = attributes;
-  const url = postFrom === 'default' ? '/wp/v2/posts' : postUrl;
+  console.log('attributes', attributes);
   const [posts, setPosts] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)([]);
-  _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
-    path: url
-  }).then(posts => {
-    setPosts(posts);
-  });
+
+  // Get url depending upon the option selected on the block
+  const getURL = () => {
+    if (postFrom === 'custom' && postUrl) {
+      return `https://${postUrl}/wp-json/wp/v2/posts`;
+    } else {
+      return '/wp/v2/posts';
+    }
+  };
+
+  // Fetch posts depending on the URL
+  const fetchData = async () => {
+    if (postFrom === 'custom') {
+      const response = await fetch(getURL());
+      const posts = await response.json();
+      setPosts(posts);
+    } else {
+      console.log('not custom');
+      _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+        path: getURL()
+      }).then(posts => setPosts(posts));
+    }
+  };
+
+  // refetch data when posts, post from or post url changes
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
+    fetchData();
+    console.log('rerendered');
+  }, [postFrom, postUrl]);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -165,7 +189,8 @@ function Slider({
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slides"
   }, posts.map(post => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sethstha-slide"
+    className: "sethstha-slide",
+    key: post.id
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, post.title.rendered)))));
 }
 
@@ -191,6 +216,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _components_slider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/slider */ "./src/components/slider.js");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__);
+
 
 
 
@@ -318,9 +346,9 @@ function Edit({
     help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enabling this will show post categories on slide', 'sethstha'),
     checked: showPostCategories,
     onChange: onPostShowCategoriesChange
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_slider__WEBPACK_IMPORTED_MODULE_5__.Slider, {
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.Suspense, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_slider__WEBPACK_IMPORTED_MODULE_5__.Slider, {
     attributes: attributes
-  }));
+  })));
 }
 
 /***/ }),

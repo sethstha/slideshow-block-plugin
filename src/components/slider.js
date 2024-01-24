@@ -1,6 +1,6 @@
 import { Icon, arrowLeft, arrowRight } from '@wordpress/icons';
 import apiFetch from '@wordpress/api-fetch';
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 
 export function Slider({ attributes }) {
 	const {
@@ -15,12 +15,35 @@ export function Slider({ attributes }) {
 		showPostCategories,
 	} = attributes;
 
-	const url = postFrom === 'default' ? '/wp/v2/posts' : postUrl;
+	console.log('attributes', attributes);
 	const [posts, setPosts] = useState([]);
 
-	apiFetch({ path: url }).then((posts) => {
-		setPosts(posts);
-	});
+	// Get url depending upon the option selected on the block
+	const getURL = () => {
+		if (postFrom === 'custom' && postUrl) {
+			return `https://${postUrl}/wp-json/wp/v2/posts`;
+		} else {
+			return '/wp/v2/posts';
+		}
+	};
+
+	// Fetch posts depending on the URL
+	const fetchData = async () => {
+		if (postFrom === 'custom') {
+			const response = await fetch(getURL());
+			const posts = await response.json();
+			setPosts(posts);
+		} else {
+			console.log('not custom');
+			apiFetch({ path: getURL() }).then((posts) => setPosts(posts));
+		}
+	};
+
+	// refetch data when posts, post from or post url changes
+	useEffect(() => {
+		fetchData();
+		console.log('rerendered');
+	}, [postFrom, postUrl]);
 
 	return (
 		<div className="sethstha-slider">
@@ -33,7 +56,7 @@ export function Slider({ attributes }) {
 
 			<div className="sethstha-slides">
 				{posts.map((post) => (
-					<div className="sethstha-slide">
+					<div className="sethstha-slide" key={post.id}>
 						<h3>{post.title.rendered}</h3>
 					</div>
 				))}

@@ -9,6 +9,7 @@ import React, {
 	__experimentalNumberControl as NumberControl,
 } from '@wordpress/components';
 import { Slider } from './components/slider';
+import { Suspense } from '@wordpress/element';
 
 export default function Edit({ attributes, setAttributes }) {
 	const {
@@ -148,7 +149,9 @@ export default function Edit({ attributes, setAttributes }) {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<Slider attributes={attributes} />
+			<Suspense>
+				<Slider attributes={attributes} />
+			</Suspense>
 		</div>
 	);
 }
