@@ -7,9 +7,12 @@ import React, {
 	__experimentalInputControl as InputControl,
 	ToggleControl,
 	__experimentalNumberControl as NumberControl,
+	Spinner,
 } from '@wordpress/components';
 import { Slider } from './components/slider';
-import { Suspense } from '@wordpress/element';
+import { Suspense, useState } from '@wordpress/element';
+import { Button } from '@wordpress/components';
+import { BaseControl } from '@wordpress/components';
 
 export default function Edit({ attributes, setAttributes }) {
 	const {
@@ -23,6 +26,8 @@ export default function Edit({ attributes, setAttributes }) {
 		showPostExcerpt,
 		showPostCategories,
 	} = attributes;
+
+	const [customURL, setCustomURL] = useState(postUrl);
 
 	const postControlOption = [
 		{
@@ -40,7 +45,7 @@ export default function Edit({ attributes, setAttributes }) {
 	};
 
 	const onSlideURLChange = (val) => {
-		setAttributes({ postUrl: val });
+		setCustomURL(val);
 	};
 
 	const onSlideShowNavChange = (val) => {
@@ -71,6 +76,10 @@ export default function Edit({ attributes, setAttributes }) {
 		setAttributes({ showPostCategories: val });
 	};
 
+	const onCustomURLUpdate = () => {
+		setAttributes({ postUrl: customURL });
+	};
+
 	return (
 		<div {...useBlockProps()}>
 			<InspectorControls>
@@ -86,16 +95,23 @@ export default function Edit({ attributes, setAttributes }) {
 						onChange={onSlideFromChange}
 					/>
 					{postFrom === 'custom' ? (
-						<InputControl
-							label="Url for posts"
-							help={__(
-								'Enter URL from where you want to fetch your posts example wptavern.com',
-								'sethstha'
-							)}
-							value={postUrl}
-							onChange={onSlideURLChange}
-							type="url"
-						/>
+						<>
+							<InputControl
+								label="Url for posts"
+								help={__(
+									'Enter URL from where you want to fetch your posts example wptavern.com',
+									'sethstha'
+								)}
+								value={postUrl}
+								onChange={onSlideURLChange}
+								type="url"
+							/>
+							<BaseControl>
+								<Button variant="primary" type="button" onClick={onCustomURLUpdate}>
+									{__('Fetch Posts', 'sethstha')}
+								</Button>
+							</BaseControl>
+						</>
 					) : null}
 					<ToggleControl
 						label={__('Show Navigation', 'sethstha')}
@@ -149,7 +165,7 @@ export default function Edit({ attributes, setAttributes }) {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<Suspense>
+			<Suspense fallback={<Spinner />}>
 				<Slider attributes={attributes} />
 			</Suspense>
 		</div>

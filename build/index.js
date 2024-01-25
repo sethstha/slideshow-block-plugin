@@ -176,6 +176,7 @@ function Slider({
     fetchData();
     console.log('rerendered');
   }, [postFrom, postUrl]);
+  console.log(posts);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -225,6 +226,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 function Edit({
   attributes,
   setAttributes
@@ -240,6 +243,7 @@ function Edit({
     showPostExcerpt,
     showPostCategories
   } = attributes;
+  const [customURL, setCustomURL] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.useState)(postUrl);
   const postControlOption = [{
     value: 'default',
     label: 'Default'
@@ -253,9 +257,7 @@ function Edit({
     });
   };
   const onSlideURLChange = val => {
-    setAttributes({
-      postUrl: val
-    });
+    setCustomURL(val);
   };
   const onSlideShowNavChange = val => {
     setAttributes({
@@ -292,6 +294,11 @@ function Edit({
       showPostCategories: val
     });
   };
+  const onCustomURLUpdate = () => {
+    setAttributes({
+      postUrl: customURL
+    });
+  };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)()
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
@@ -302,13 +309,17 @@ function Edit({
     value: postFrom,
     options: postControlOption,
     onChange: onSlideFromChange
-  }), postFrom === 'custom' ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalInputControl, {
+  }), postFrom === 'custom' ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalInputControl, {
     label: "Url for posts",
     help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enter URL from where you want to fetch your posts example wptavern.com', 'sethstha'),
     value: postUrl,
     onChange: onSlideURLChange,
     type: "url"
-  }) : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.BaseControl, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Button, {
+    variant: "primary",
+    type: "button",
+    onClick: onCustomURLUpdate
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Fetch Posts', 'sethstha')))) : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show Navigation', 'sethstha'),
     help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enabling this will show arrow navigation to navigate slideslow', 'sethstha'),
     checked: showNav,
@@ -346,7 +357,9 @@ function Edit({
     help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enabling this will show post categories on slide', 'sethstha'),
     checked: showPostCategories,
     onChange: onPostShowCategoriesChange
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.Suspense, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_slider__WEBPACK_IMPORTED_MODULE_5__.Slider, {
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.Suspense, {
+    fallback: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Spinner, null)
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_slider__WEBPACK_IMPORTED_MODULE_5__.Slider, {
     attributes: attributes
   })));
 }

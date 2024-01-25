@@ -45,6 +45,7 @@ export function Slider({ attributes }) {
 		console.log('rerendered');
 	}, [postFrom, postUrl]);
 
+	console.log(posts);
 	return (
 		<div className="sethstha-slider">
 			<div className="sethstha-slider-nav seth-slider-nav--prev">
