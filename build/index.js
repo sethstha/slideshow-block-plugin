@@ -108,6 +108,33 @@ const arrowRight = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpre
 
 /***/ }),
 
+/***/ "./src/components/slide.js":
+/*!*********************************!*\
+  !*** ./src/components/slide.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Slide)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+function Slide({
+  title,
+  link
+}) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "sethstha-slide"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: link,
+    target: "_blank"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, title)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("figure", null));
+}
+
+/***/ }),
+
 /***/ "./src/components/slider.js":
 /*!**********************************!*\
   !*** ./src/components/slider.js ***!
@@ -120,13 +147,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/icon/index.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/arrow-left.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/arrow-right.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/icon/index.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/arrow-left.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/arrow-right.js");
 /* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
 /* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _slide__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./slide */ "./src/components/slide.js");
+
 
 
 
@@ -145,7 +174,6 @@ function Slider({
     showPostExcerpt,
     showPostCategories
   } = attributes;
-  console.log('attributes', attributes);
   const [posts, setPosts] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)([]);
 
   // Get url depending upon the option selected on the block
@@ -164,7 +192,6 @@ function Slider({
       const posts = await response.json();
       setPosts(posts);
     } else {
-      console.log('not custom');
       _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
         path: getURL()
       }).then(posts => setPosts(posts));
@@ -174,25 +201,24 @@ function Slider({
   // refetch data when posts, post from or post url changes
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
     fetchData();
-    console.log('rerendered');
   }, [postFrom, postUrl]);
   console.log(posts);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider-nav seth-slider-nav--prev"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"]
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sethstha-slider-nav seth-slider-nav--next"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"]
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "sethstha-slider-nav seth-slider-nav--next"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__["default"]
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slides"
-  }, posts.map(post => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sethstha-slide",
-    key: post.id
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, post.title.rendered)))));
+  }, posts.map(post => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_slide__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    link: post.link,
+    title: post.title.rendered
+  }))));
 }
 
 /***/ }),

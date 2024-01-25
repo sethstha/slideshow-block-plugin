@@ -1,6 +1,7 @@
 import { Icon, arrowLeft, arrowRight } from '@wordpress/icons';
 import apiFetch from '@wordpress/api-fetch';
 import { useState, useEffect } from '@wordpress/element';
+import Slide from './slide';
 
 export function Slider({ attributes }) {
 	const {
@@ -15,7 +16,6 @@ export function Slider({ attributes }) {
 		showPostCategories,
 	} = attributes;
 
-	console.log('attributes', attributes);
 	const [posts, setPosts] = useState([]);
 
 	// Get url depending upon the option selected on the block
@@ -34,7 +34,6 @@ export function Slider({ attributes }) {
 			const posts = await response.json();
 			setPosts(posts);
 		} else {
-			console.log('not custom');
 			apiFetch({ path: getURL() }).then((posts) => setPosts(posts));
 		}
 	};
@@ -42,7 +41,6 @@ export function Slider({ attributes }) {
 	// refetch data when posts, post from or post url changes
 	useEffect(() => {
 		fetchData();
-		console.log('rerendered');
 	}, [postFrom, postUrl]);
 
 	console.log(posts);
@@ -57,9 +55,7 @@ export function Slider({ attributes }) {
 
 			<div className="sethstha-slides">
 				{posts.map((post) => (
-					<div className="sethstha-slide" key={post.id}>
-						<h3>{post.title.rendered}</h3>
-					</div>
+					<Slide link={post.link} title={post.title.rendered} />
 				))}
 			</div>
 		</div>
