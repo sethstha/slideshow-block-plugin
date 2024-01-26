@@ -10,7 +10,6 @@ export default function Slide({ title, link, featuredImage }) {
 				path: `/wp/v2/media/${featuredImage}`,
 			}).then((image) => {
 				setImage(image);
-				console.log(image);
 			});
 		}
 	}, []);

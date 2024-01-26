@@ -139,7 +139,6 @@ function Slide({
         path: `/wp/v2/media/${featuredImage}`
       }).then(image => {
         setImage(image);
-        console.log(image);
       });
     }
   }, []);
@@ -200,7 +199,7 @@ function Slider({
     showPostCategories
   } = attributes;
   const [posts, setPosts] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)([]);
-
+  const [activeIndex, setActiveIndex] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)(0);
   // Get url depending upon the option selected on the block
   const getURL = () => {
     if (postFrom === 'custom' && postUrl) {
@@ -227,20 +226,34 @@ function Slider({
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
     fetchData();
   }, [postFrom, postUrl]);
+  const onPrevPress = () => {
+    setActiveIndex(prevIndex => (prevIndex + 1 + posts.length) % posts.length);
+  };
+  const onNextPress = () => {
+    setActiveIndex(prevIndex => (prevIndex + 1) % posts.length);
+  };
+  console.log(activeIndex);
+  const currentTransform = -activeIndex * 100;
+  console.log('current transform', currentTransform);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider-wrapper"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sethstha-slider-nav seth-slider-nav--prev"
+    className: "sethstha-slider-nav seth-slider-nav--prev",
+    onClick: onPrevPress
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"]
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sethstha-slider-nav seth-slider-nav--next"
+    className: "sethstha-slider-nav seth-slider-nav--next",
+    onClick: onNextPress
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__["default"]
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sethstha-slides"
+    className: "sethstha-slides",
+    style: {
+      transform: `translateX(${currentTransform}%)`
+    }
   }, posts.map(post => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_slide__WEBPACK_IMPORTED_MODULE_3__["default"], {
     key: post.id,
     link: post.link,

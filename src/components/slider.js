@@ -17,7 +17,7 @@ export function Slider({ attributes }) {
 	} = attributes;
 
 	const [posts, setPosts] = useState([]);
-
+	const [activeIndex, setActiveIndex] = useState(0);
 	// Get url depending upon the option selected on the block
 	const getURL = () => {
 		if (postFrom === 'custom' && postUrl) {
@@ -43,17 +43,29 @@ export function Slider({ attributes }) {
 		fetchData();
 	}, [postFrom, postUrl]);
 
+	const onPrevPress = () => {
+		setActiveIndex((prevIndex) => (prevIndex + 1 + posts.length) % posts.length);
+	};
+	const onNextPress = () => {
+		setActiveIndex((prevIndex) => (prevIndex + 1) % posts.length);
+	};
+
+	console.log(activeIndex);
+
+	const currentTransform = -activeIndex * 100;
+
+	console.log('current transform', currentTransform);
 	return (
 		<div className="sethstha-slider-wrapper">
 			<div className="sethstha-slider">
-				<div className="sethstha-slider-nav seth-slider-nav--prev">
+				<div className="sethstha-slider-nav seth-slider-nav--prev" onClick={onPrevPress}>
 					<Icon icon={arrowLeft} />
 				</div>
-				<div className="sethstha-slider-nav seth-slider-nav--next">
+				<div className="sethstha-slider-nav seth-slider-nav--next" onClick={onNextPress}>
 					<Icon icon={arrowRight} />
 				</div>
 
-				<div className="sethstha-slides">
+				<div className="sethstha-slides" style={{ transform: `translateX(${currentTransform}%)` }}>
 					{posts.map((post) => (
 						<Slide
 							key={post.id}
