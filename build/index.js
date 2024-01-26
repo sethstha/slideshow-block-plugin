@@ -132,7 +132,6 @@ function Slide({
   link,
   featuredImage
 }) {
-  console.log('featured', featuredImage);
   const [image, setImage] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)();
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
     if (featuredImage !== 0) {
@@ -156,7 +155,7 @@ function Slide({
     alt: title,
     srcSet: `${image.media_details.sizes.full.source_url} ${image.media_details.sizes.full.width}w, ${image.media_details.sizes.thumbnail.source_url} ${image.media_details.sizes.thumbnail.width}w`,
     sizes: `(max-width: ${image.media_details.width}px) 100vw, ${image.media_details.width}px`
-  }) : null), featuredImage !== 0 ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, "Has fearured iamge") : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, "Has no iamge"));
+  }) : null));
 }
 
 /***/ }),
@@ -229,6 +228,8 @@ function Slider({
     fetchData();
   }, [postFrom, postUrl]);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "sethstha-slider-wrapper"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider-nav seth-slider-nav--prev"
@@ -245,7 +246,7 @@ function Slider({
     link: post.link,
     title: post.title.rendered,
     featuredImage: post.featured_media
-  }))));
+  })))));
 }
 
 /***/ }),

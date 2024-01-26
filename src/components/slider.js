@@ -44,23 +44,25 @@ export function Slider({ attributes }) {
 	}, [postFrom, postUrl]);
 
 	return (
-		<div className="sethstha-slider">
-			<div className="sethstha-slider-nav seth-slider-nav--prev">
-				<Icon icon={arrowLeft} />
-			</div>
-			<div className="sethstha-slider-nav seth-slider-nav--next">
-				<Icon icon={arrowRight} />
-			</div>
+		<div className="sethstha-slider-wrapper">
+			<div className="sethstha-slider">
+				<div className="sethstha-slider-nav seth-slider-nav--prev">
+					<Icon icon={arrowLeft} />
+				</div>
+				<div className="sethstha-slider-nav seth-slider-nav--next">
+					<Icon icon={arrowRight} />
+				</div>
 
-			<div className="sethstha-slides">
-				{posts.map((post) => (
-					<Slide
-						key={post.id}
-						link={post.link}
-						title={post.title.rendered}
-						featuredImage={post.featured_media}
-					/>
-				))}
+				<div className="sethstha-slides">
+					{posts.map((post) => (
+						<Slide
+							key={post.id}
+							link={post.link}
+							title={post.title.rendered}
+							featuredImage={post.featured_media}
+						/>
+					))}
+				</div>
 			</div>
 		</div>
 	);

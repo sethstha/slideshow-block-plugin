@@ -2,7 +2,6 @@ import apiFetch from '@wordpress/api-fetch';
 import { useEffect, useState } from '@wordpress/element';
 
 export default function Slide({ title, link, featuredImage }) {
-	console.log('featured', featuredImage);
 	const [image, setImage] = useState();
 
 	useEffect(() => {
@@ -33,7 +32,6 @@ export default function Slide({ title, link, featuredImage }) {
 					/>
 				) : null}
 			</figure>
-			{featuredImage !== 0 ? <span>Has fearured iamge</span> : <span>Has no iamge</span>}
 		</div>
 	);
 }
