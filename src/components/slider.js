@@ -43,7 +43,6 @@ export function Slider({ attributes }) {
 		fetchData();
 	}, [postFrom, postUrl]);
 
-	console.log(posts);
 	return (
 		<div className="sethstha-slider">
 			<div className="sethstha-slider-nav seth-slider-nav--prev">
@@ -55,7 +54,12 @@ export function Slider({ attributes }) {
 
 			<div className="sethstha-slides">
 				{posts.map((post) => (
-					<Slide link={post.link} title={post.title.rendered} />
+					<Slide
+						key={post.id}
+						link={post.link}
+						title={post.title.rendered}
+						featuredImage={post.featured_media}
+					/>
 				))}
 			</div>
 		</div>
