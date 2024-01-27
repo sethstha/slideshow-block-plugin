@@ -145,14 +145,25 @@ function Slide({
     showPostTitle,
     showPostExcerpt
   } = attributes;
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
+
+  // Fetch image depending upon the option
+  const fetchImage = async () => {
     if (featuredImage !== 0) {
-      _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
-        path: `/wp/v2/media/${featuredImage}`
-      }).then(image => {
+      if (postFrom === 'custom') {
+        const response = await fetch(`https://${postUrl}/wp-json/wp/v2/media/${featuredImage}`);
+        const image = await response.json();
         setImage(image);
-      });
+      } else {
+        _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+          path: `/wp/v2/media/${featuredImage}`
+        }).then(image => {
+          setImage(image);
+        });
+      }
     }
+  };
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
+    fetchImage();
   }, []);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: `sethstha-slide ${image ? 'has-thumbnail' : 'has-no-thumbnal'}`
@@ -163,10 +174,10 @@ function Slide({
     alt: title,
     srcSet: `${image.media_details.sizes.full.source_url} ${image.media_details.sizes.full.width}w, ${image.media_details.sizes.thumbnail.source_url} ${image.media_details.sizes.thumbnail.width}w`,
     sizes: `(max-width: ${image.media_details.width}px) 100vw, ${image.media_details.width}px`
-  }) : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("figcaption", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+  }) : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("figcaption", null, showPostTitle && title ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: link,
     target: "_blank"
-  }, title), desc && showPostExcerpt ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, title) : null, desc && showPostExcerpt ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     dangerouslySetInnerHTML: {
       __html: desc
     }

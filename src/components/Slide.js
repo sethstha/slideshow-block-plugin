@@ -20,14 +20,27 @@ export default function Slide({
 		showPostExcerpt,
 	} = attributes;
 
-	useEffect(() => {
+	// Fetch image depending upon the option
+	const fetchImage = async () => {
 		if (featuredImage !== 0) {
-			apiFetch({
-				path: `/wp/v2/media/${featuredImage}`,
-			}).then((image) => {
+			if (postFrom === 'custom') {
+				const response = await fetch(
+					`https://${postUrl}/wp-json/wp/v2/media/${featuredImage}`
+				);
+				const image = await response.json();
 				setImage(image);
-			});
+			} else {
+				apiFetch({
+					path: `/wp/v2/media/${featuredImage}`,
+				}).then((image) => {
+					setImage(image);
+				});
+			}
 		}
+	};
+
+	useEffect(() => {
+		fetchImage();
 	}, []);
 
 	return (
@@ -46,9 +59,11 @@ export default function Slide({
 					/>
 				) : null}
 				<figcaption>
-					<a href={link} target="_blank">
-						{title}
-					</a>
+					{showPostTitle && title ? (
+						<a href={link} target="_blank">
+							{title}
+						</a>
+					) : null}
 
 					{desc && showPostExcerpt ? (
 						<div dangerouslySetInnerHTML={{ __html: desc }} />
