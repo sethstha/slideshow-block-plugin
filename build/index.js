@@ -259,19 +259,31 @@ function Slider({
   const onNextPress = () => {
     setActiveIndex(prevIndex => (prevIndex + 1) % posts.length);
   };
-  console.log(activeIndex);
+
+  // Use index for css to transform
   const currentTransform = -activeIndex * 100;
-  console.log('current transform', currentTransform);
+  const renderPagination = () => {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "sethstha-pagination"
+    }, posts.map((_, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+      type: "button1",
+      key: index,
+      className: `sethstha-pagination-indicator ${index === activeIndex ? 'active' : ''}`,
+      onClick: () => setActiveIndex(index)
+    })));
+  };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider-wrapper"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider"
-  }, showNav ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, showNav ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    type: "button",
     className: "sethstha-slider-nav sethstha-slider-nav--prev",
     onClick: onPrevPress
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"]
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    type: "button",
     className: "sethstha-slider-nav sethstha-slider-nav--next",
     onClick: onNextPress
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -288,7 +300,7 @@ function Slider({
     featuredImage: post.featured_media,
     desc: post.excerpt.rendered,
     attributes: attributes
-  })))));
+  }))), renderPagination()));
 }
 
 /***/ }),

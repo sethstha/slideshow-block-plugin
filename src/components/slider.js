@@ -53,28 +53,42 @@ export function Slider({ attributes }) {
 		setActiveIndex((prevIndex) => (prevIndex + 1) % posts.length);
 	};
 
-	console.log(activeIndex);
-
+	// Use index for css to transform
 	const currentTransform = -activeIndex * 100;
 
-	console.log('current transform', currentTransform);
+	const renderPagination = () => {
+		return (
+			<div className="sethstha-pagination">
+				{posts.map((_, index) => (
+					<button
+						type="button1"
+						key={index}
+						className={`sethstha-pagination-indicator ${index === activeIndex ? 'active' : ''}`}
+						onClick={() => setActiveIndex(index)}
+					></button>
+				))}
+			</div>
+		);
+	};
 	return (
 		<div className="sethstha-slider-wrapper">
 			<div className="sethstha-slider">
 				{showNav ? (
 					<>
-						<div
+						<button
+							type="button"
 							className="sethstha-slider-nav sethstha-slider-nav--prev"
 							onClick={onPrevPress}
 						>
 							<Icon icon={arrowLeft} />
-						</div>
-						<div
+						</button>
+						<button
+							type="button"
 							className="sethstha-slider-nav sethstha-slider-nav--next"
 							onClick={onNextPress}
 						>
 							<Icon icon={arrowRight} />
-						</div>
+						</button>
 					</>
 				) : null}
 
@@ -93,6 +107,7 @@ export function Slider({ attributes }) {
 						/>
 					))}
 				</div>
+				{renderPagination()}
 			</div>
 		</div>
 	);
