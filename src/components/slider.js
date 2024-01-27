@@ -44,10 +44,12 @@ export function Slider({ attributes }) {
 	}, [postFrom, postUrl]);
 
 	const onPrevPress = () => {
+		console.log('prev pressed');
 		setActiveIndex(
-			(prevIndex) => (prevIndex + 1 + posts.length) % posts.length
+			(prevIndex) => (prevIndex - 1 + posts.length) % posts.length
 		);
 	};
+
 	const onNextPress = () => {
 		setActiveIndex((prevIndex) => (prevIndex + 1) % posts.length);
 	};

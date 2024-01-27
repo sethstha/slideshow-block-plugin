@@ -15,10 +15,9 @@ export default function Slide({ title, link, featuredImage }) {
 	}, []);
 
 	return (
-		<div className="sethstha-slide">
-			<a href={link} target="_blank">
-				<h3>{title}</h3>
-			</a>
+		<div
+			className={`sethstha-slide ${image ? 'has-thumbnail' : 'has-no-thumbnal'}`}
+		>
 			<figure>
 				{image ? (
 					<img
@@ -30,6 +29,11 @@ export default function Slide({ title, link, featuredImage }) {
 						sizes={`(max-width: ${image.media_details.width}px) 100vw, ${image.media_details.width}px`}
 					/>
 				) : null}
+				<figcaption>
+					<a href={link} target="_blank">
+						<h3>{title}</h3>
+					</a>
+				</figcaption>
 			</figure>
 		</div>
 	);

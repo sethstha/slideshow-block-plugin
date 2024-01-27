@@ -143,18 +143,18 @@ function Slide({
     }
   }, []);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sethstha-slide"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-    href: link,
-    target: "_blank"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, title)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("figure", null, image ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    className: `sethstha-slide ${image ? 'has-thumbnail' : 'has-no-thumbnal'}`
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("figure", null, image ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
     width: image.media_details.width,
     height: image.media_details.height,
     src: image.source_url,
     alt: title,
     srcSet: `${image.media_details.sizes.full.source_url} ${image.media_details.sizes.full.width}w, ${image.media_details.sizes.thumbnail.source_url} ${image.media_details.sizes.thumbnail.width}w`,
     sizes: `(max-width: ${image.media_details.width}px) 100vw, ${image.media_details.width}px`
-  }) : null));
+  }) : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("figcaption", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: link,
+    target: "_blank"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, title)))));
 }
 
 /***/ }),
@@ -227,7 +227,8 @@ function Slider({
     fetchData();
   }, [postFrom, postUrl]);
   const onPrevPress = () => {
-    setActiveIndex(prevIndex => (prevIndex + 1 + posts.length) % posts.length);
+    console.log('prev pressed');
+    setActiveIndex(prevIndex => (prevIndex - 1 + posts.length) % posts.length);
   };
   const onNextPress = () => {
     setActiveIndex(prevIndex => (prevIndex + 1) % posts.length);
