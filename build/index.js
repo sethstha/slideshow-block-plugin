@@ -220,12 +220,13 @@ function Slider({
     showNav,
     showPag,
     autoSlide,
-    delay,
-    showPostTitle,
-    showPostExcerpt
+    delay
   } = attributes;
   const [posts, setPosts] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)([]);
   const [activeIndex, setActiveIndex] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)(0);
+  const [touchStart, setTouchStart] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)(null);
+  const [touchEnd, setTouchEnd] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)(null);
+
   // Get url depending upon the option selected on the block
   const getURL = () => {
     if (postFrom === 'custom' && postUrl) {
@@ -252,22 +253,45 @@ function Slider({
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
     fetchData();
   }, [postFrom, postUrl]);
-  const onPrevPress = () => {
-    console.log('prev pressed');
+  const onPrevPress = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useCallback)(() => {
     setActiveIndex(prevIndex => (prevIndex - 1 + posts.length) % posts.length);
-  };
-  const onNextPress = () => {
+  }, [posts.length]);
+  const onNextPress = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useCallback)(() => {
     setActiveIndex(prevIndex => (prevIndex + 1) % posts.length);
-  };
+  }, [posts.length]);
 
   // Use index for css to transform
   const currentTransform = -activeIndex * 100;
+
+  // Autoplay the slide
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
+    if (autoSlide && delay) {
+      console.log('auto play is on', parseInt(delay));
+      const autoplay = setInterval(onNextPress, delay);
+      return () => clearInterval(autoplay);
+    }
+  }, [autoSlide, delay, onNextPress]);
 
   // Handle keyboard navigation
   const handleKeyPress = event => {
     if (event.key === 'ArrowRight') {
       onNextPress();
     } else if (event.key === 'ArrowLeft') {
+      onPrevPress();
+    }
+  };
+  const onTouchStart = e => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+  const onTouchMove = e => setTouchEnd(e.targetTouches[0].clientX);
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const minSwipeDistance = 50;
+    const distance = touchStart - touchEnd;
+    if (distance > minSwipeDistance) {
+      onNextPress();
+    } else if (distance < -minSwipeDistance) {
       onPrevPress();
     }
   };
@@ -286,8 +310,10 @@ function Slider({
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider-wrapper",
     onKeyDown: handleKeyPress,
-    tabIndex: "0",
-    "aria-description": "Post Slideshow"
+    "aria-description": "Post Slideshow",
+    onTouchEnd: onTouchEnd,
+    onTouchStart: onTouchStart,
+    onTouchMove: onTouchMove
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider"
   }, showNav ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
@@ -618,7 +644,7 @@ module.exports = window["wp"]["primitives"];
   \************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"sethstha/sethstha-slideshow","version":"0.1.0","title":"Posts Slideshow ","category":"design","icon":"hammer","description":"Shows slideshow of latest blog posts","example":{},"supports":{"html":false},"textdomain":"sethstha","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"postFrom":{"type":"string","default":"default"},"postUrl":{"type":"string"},"showNav":{"type":"boolean","default":true},"showPag":{"type":"boolean","default":true},"autoSlide":{"type":"boolean","default":true},"delay":{"type":"string","default":"300"},"showPostTitle":{"type":"boolean","default":true},"showPostExcerpt":{"type":"boolean","default":true}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"sethstha/sethstha-slideshow","version":"0.1.0","title":"Posts Slideshow ","category":"design","icon":"hammer","description":"Shows slideshow of latest blog posts","example":{},"supports":{"html":false},"textdomain":"sethstha","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"postFrom":{"type":"string","default":"default"},"postUrl":{"type":"string"},"showNav":{"type":"boolean","default":true},"showPag":{"type":"boolean","default":true},"autoSlide":{"type":"boolean","default":true},"delay":{"type":"string","default":"3000"},"showPostTitle":{"type":"boolean","default":true},"showPostExcerpt":{"type":"boolean","default":true}}}');
 
 /***/ })
 

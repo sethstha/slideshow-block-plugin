@@ -1,22 +1,16 @@
 import { Icon, arrowLeft, arrowRight } from '@wordpress/icons';
 import apiFetch from '@wordpress/api-fetch';
-import { useState, useEffect } from '@wordpress/element';
+import { useState, useEffect, useCallback } from '@wordpress/element';
 import Slide from './slide';
 
 export function Slider({ attributes }) {
-	const {
-		postFrom,
-		postUrl,
-		showNav,
-		showPag,
-		autoSlide,
-		delay,
-		showPostTitle,
-		showPostExcerpt,
-	} = attributes;
+	const { postFrom, postUrl, showNav, showPag, autoSlide, delay } = attributes;
 
 	const [posts, setPosts] = useState([]);
 	const [activeIndex, setActiveIndex] = useState(0);
+	const [touchStart, setTouchStart] = useState(null);
+	const [touchEnd, setTouchEnd] = useState(null);
+
 	// Get url depending upon the option selected on the block
 	const getURL = () => {
 		if (postFrom === 'custom' && postUrl) {
@@ -42,25 +36,53 @@ export function Slider({ attributes }) {
 		fetchData();
 	}, [postFrom, postUrl]);
 
-	const onPrevPress = () => {
-		console.log('prev pressed');
+	const onPrevPress = useCallback(() => {
 		setActiveIndex(
 			(prevIndex) => (prevIndex - 1 + posts.length) % posts.length
 		);
-	};
+	}, [posts.length]);
 
-	const onNextPress = () => {
+	const onNextPress = useCallback(() => {
 		setActiveIndex((prevIndex) => (prevIndex + 1) % posts.length);
-	};
+	}, [posts.length]);
 
 	// Use index for css to transform
 	const currentTransform = -activeIndex * 100;
+
+	// Autoplay the slide
+	useEffect(() => {
+		if (autoSlide && delay) {
+			console.log('auto play is on', parseInt(delay));
+			const autoplay = setInterval(onNextPress, delay);
+			return () => clearInterval(autoplay);
+		}
+	}, [autoSlide, delay, onNextPress]);
 
 	// Handle keyboard navigation
 	const handleKeyPress = (event) => {
 		if (event.key === 'ArrowRight') {
 			onNextPress();
 		} else if (event.key === 'ArrowLeft') {
+			onPrevPress();
+		}
+	};
+
+	const onTouchStart = (e) => {
+		setTouchEnd(null);
+		setTouchStart(e.targetTouches[0].clientX);
+	};
+
+	const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+
+	const onTouchEnd = () => {
+		if (!touchStart || !touchEnd) return;
+		const minSwipeDistance = 50;
+
+		const distance = touchStart - touchEnd;
+
+		if (distance > minSwipeDistance) {
+			onNextPress();
+		} else if (distance < -minSwipeDistance) {
 			onPrevPress();
 		}
 	};
@@ -85,8 +107,10 @@ export function Slider({ attributes }) {
 		<div
 			className="sethstha-slider-wrapper"
 			onKeyDown={handleKeyPress}
-			tabIndex="0"
 			aria-description="Post Slideshow"
+			onTouchEnd={onTouchEnd}
+			onTouchStart={onTouchStart}
+			onTouchMove={onTouchMove}
 		>
 			<div className="sethstha-slider">
 				{showNav ? (

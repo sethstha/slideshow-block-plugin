@@ -39,7 +39,7 @@
 		},
 		"delay": {
 			"type": "string",
-			"default": "300"
+			"default": "3000"
 		},
 		"showPostTitle": {
 			"type": "boolean",
