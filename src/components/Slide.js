@@ -31,7 +31,7 @@ export default function Slide({ title, link, featuredImage }) {
 				) : null}
 				<figcaption>
 					<a href={link} target="_blank">
-						<h3>{title}</h3>
+						{title}
 					</a>
 				</figcaption>
 			</figure>

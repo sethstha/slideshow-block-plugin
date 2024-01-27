@@ -62,18 +62,22 @@ export function Slider({ attributes }) {
 	return (
 		<div className="sethstha-slider-wrapper">
 			<div className="sethstha-slider">
-				<div
-					className="sethstha-slider-nav sethstha-slider-nav--prev"
-					onClick={onPrevPress}
-				>
-					<Icon icon={arrowLeft} />
-				</div>
-				<div
-					className="sethstha-slider-nav sethstha-slider-nav--next"
-					onClick={onNextPress}
-				>
-					<Icon icon={arrowRight} />
-				</div>
+				{showNav ? (
+					<>
+						<div
+							className="sethstha-slider-nav sethstha-slider-nav--prev"
+							onClick={onPrevPress}
+						>
+							<Icon icon={arrowLeft} />
+						</div>
+						<div
+							className="sethstha-slider-nav sethstha-slider-nav--next"
+							onClick={onNextPress}
+						>
+							<Icon icon={arrowRight} />
+						</div>
+					</>
+				) : null}
 
 				<div
 					className="sethstha-slides"

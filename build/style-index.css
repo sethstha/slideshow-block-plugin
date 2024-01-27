@@ -35,9 +35,11 @@
   height: 300px;
   -o-object-fit: cover;
      object-fit: cover;
+  display: block;
 }
 .sethstha-slide.has-thumbnail figure {
   position: relative;
+  margin-bottom: 0;
 }
 .sethstha-slide.has-thumbnail figcaption {
   position: absolute;

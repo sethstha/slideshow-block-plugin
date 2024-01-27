@@ -154,7 +154,7 @@ function Slide({
   }) : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("figcaption", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: link,
     target: "_blank"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, title)))));
+  }, title))));
 }
 
 /***/ }),
@@ -240,7 +240,7 @@ function Slider({
     className: "sethstha-slider-wrapper"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, showNav ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider-nav sethstha-slider-nav--prev",
     onClick: onPrevPress
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -250,7 +250,7 @@ function Slider({
     onClick: onNextPress
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__["default"]
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }))) : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slides",
     style: {
       transform: `translateX(${currentTransform}%)`
