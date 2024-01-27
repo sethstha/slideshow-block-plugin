@@ -10,11 +10,4 @@
   border: 1px dotted #f00;
 }
 
-.sethstha-slide img {
-  border-radius: 5px;
-  height: 300px;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
 /*# sourceMappingURL=index.css.map*/

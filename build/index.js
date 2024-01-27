@@ -240,12 +240,12 @@ function Slider({
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sethstha-slider-nav seth-slider-nav--prev",
+    className: "sethstha-slider-nav sethstha-slider-nav--prev",
     onClick: onPrevPress
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"]
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sethstha-slider-nav seth-slider-nav--next",
+    className: "sethstha-slider-nav sethstha-slider-nav--next",
     onClick: onNextPress
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__["default"]
