@@ -69,6 +69,7 @@
   z-index: 99;
   transform: translateY(-50%);
   top: 50%;
+  border: none;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
@@ -83,6 +84,28 @@
 }
 .sethstha-slider-nav--next {
   right: 10px;
+}
+
+.sethstha-pagination {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+}
+
+.sethstha-pagination-indicator {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  background: #ccc;
+  border-radius: 100%;
+  cursor: pointer;
+}
+.sethstha-pagination-indicator.active {
+  background-color: #3858e9;
 }
 
 @media (min-width: 768px) {

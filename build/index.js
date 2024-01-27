@@ -300,7 +300,7 @@ function Slider({
     featuredImage: post.featured_media,
     desc: post.excerpt.rendered,
     attributes: attributes
-  }))), renderPagination()));
+  }))), showPag ? renderPagination() : null));
 }
 
 /***/ }),

@@ -107,7 +107,7 @@ export function Slider({ attributes }) {
 						/>
 					))}
 				</div>
-				{renderPagination()}
+				{showPag ? renderPagination() : null}
 			</div>
 		</div>
 	);
