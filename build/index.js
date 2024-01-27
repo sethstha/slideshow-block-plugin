@@ -278,7 +278,9 @@ function Slider({
       type: "button1",
       key: index,
       className: `sethstha-pagination-indicator ${index === activeIndex ? 'active' : ''}`,
-      onClick: () => setActiveIndex(index)
+      onClick: () => setActiveIndex(index),
+      "aria-label": `Navigate to slide ${index + 1}`,
+      "aria-selected": index === activeIndex
     })));
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {

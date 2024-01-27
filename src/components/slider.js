@@ -74,6 +74,8 @@ export function Slider({ attributes }) {
 						key={index}
 						className={`sethstha-pagination-indicator ${index === activeIndex ? 'active' : ''}`}
 						onClick={() => setActiveIndex(index)}
+						aria-label={`Navigate to slide ${index + 1}`}
+						aria-selected={index === activeIndex}
 					></button>
 				))}
 			</div>
