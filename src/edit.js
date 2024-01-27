@@ -107,7 +107,11 @@ export default function Edit({ attributes, setAttributes }) {
 								type="url"
 							/>
 							<BaseControl>
-								<Button variant="primary" type="button" onClick={onCustomURLUpdate}>
+								<Button
+									variant="primary"
+									type="button"
+									onClick={onCustomURLUpdate}
+								>
 									{__('Fetch Posts', 'sethstha')}
 								</Button>
 							</BaseControl>
@@ -115,19 +119,28 @@ export default function Edit({ attributes, setAttributes }) {
 					) : null}
 					<ToggleControl
 						label={__('Show Navigation', 'sethstha')}
-						help={__('Enabling this will show arrow navigation to navigate slideslow', 'sethstha')}
+						help={__(
+							'Enabling this will show arrow navigation to navigate slideslow',
+							'sethstha'
+						)}
 						checked={showNav}
 						onChange={onSlideShowNavChange}
 					/>
 					<ToggleControl
 						label={__('Show Pagination', 'sethstha')}
-						help={__('Enabling this will show pagination on slideshow', 'sethstha')}
+						help={__(
+							'Enabling this will show pagination on slideshow',
+							'sethstha'
+						)}
 						checked={showPag}
 						onChange={onSlideShowPagChange}
 					/>
 					<ToggleControl
 						label={__('Auto Slide', 'sethstha')}
-						help={__('Enabling this will show auto slide your slideshow', 'sethstha')}
+						help={__(
+							'Enabling this will show auto slide your slideshow',
+							'sethstha'
+						)}
 						checked={autoSlide}
 						onChange={onSlideAutoSlideChange}
 					/>
@@ -153,15 +166,12 @@ export default function Edit({ attributes, setAttributes }) {
 					/>
 					<ToggleControl
 						label={__('Show Post Excerpt', 'sethstha')}
-						help={__('Enabling this will show post short description on slide', 'sethstha')}
+						help={__(
+							'Enabling this will show post short description on slide',
+							'sethstha'
+						)}
 						checked={showPostExcerpt}
 						onChange={onPostShowExcerptChange}
-					/>
-					<ToggleControl
-						label={__('Show Post Categories', 'sethstha')}
-						help={__('Enabling this will show post categories on slide', 'sethstha')}
-						checked={showPostCategories}
-						onChange={onPostShowCategoriesChange}
 					/>
 				</PanelBody>
 			</InspectorControls>

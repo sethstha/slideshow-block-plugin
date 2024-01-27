@@ -48,10 +48,6 @@
 		"showPostExcerpt": {
 			"type": "boolean",
 			"default": true
-		},
-		"showPostCategories": {
-			"type": "boolean",
-			"default": true
 		}
 	}
 }

@@ -130,9 +130,21 @@ __webpack_require__.r(__webpack_exports__);
 function Slide({
   title,
   link,
-  featuredImage
+  featuredImage,
+  desc,
+  attributes
 }) {
   const [image, setImage] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)();
+  const {
+    postFrom,
+    postUrl,
+    showNav,
+    showPag,
+    autoSlide,
+    delay,
+    showPostTitle,
+    showPostExcerpt
+  } = attributes;
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
     if (featuredImage !== 0) {
       _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
@@ -154,7 +166,11 @@ function Slide({
   }) : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("figcaption", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: link,
     target: "_blank"
-  }, title))));
+  }, title), desc && showPostExcerpt ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    dangerouslySetInnerHTML: {
+      __html: desc
+    }
+  }) : null)));
 }
 
 /***/ }),
@@ -195,8 +211,7 @@ function Slider({
     autoSlide,
     delay,
     showPostTitle,
-    showPostExcerpt,
-    showPostCategories
+    showPostExcerpt
   } = attributes;
   const [posts, setPosts] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)([]);
   const [activeIndex, setActiveIndex] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)(0);
@@ -259,7 +274,9 @@ function Slider({
     key: post.id,
     link: post.link,
     title: post.title.rendered,
-    featuredImage: post.featured_media
+    featuredImage: post.featured_media,
+    desc: post.excerpt.rendered,
+    attributes: attributes
   })))));
 }
 
@@ -420,11 +437,6 @@ function Edit({
     help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enabling this will show post short description on slide', 'sethstha'),
     checked: showPostExcerpt,
     onChange: onPostShowExcerptChange
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show Post Categories', 'sethstha'),
-    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enabling this will show post categories on slide', 'sethstha'),
-    checked: showPostCategories,
-    onChange: onPostShowCategoriesChange
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.Suspense, {
     fallback: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Spinner, null)
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_slider__WEBPACK_IMPORTED_MODULE_5__.Slider, {
@@ -567,7 +579,7 @@ module.exports = window["wp"]["primitives"];
   \************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"sethstha/sethstha-slideshow","version":"0.1.0","title":"Posts Slideshow ","category":"design","icon":"hammer","description":"Shows slideshow of latest blog posts","example":{},"supports":{"html":false},"textdomain":"sethstha","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"postFrom":{"type":"string","default":"default"},"postUrl":{"type":"string"},"showNav":{"type":"boolean","default":true},"showPag":{"type":"boolean","default":true},"autoSlide":{"type":"boolean","default":true},"delay":{"type":"string","default":"300"},"showPostTitle":{"type":"boolean","default":true},"showPostExcerpt":{"type":"boolean","default":true},"showPostCategories":{"type":"boolean","default":true}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"sethstha/sethstha-slideshow","version":"0.1.0","title":"Posts Slideshow ","category":"design","icon":"hammer","description":"Shows slideshow of latest blog posts","example":{},"supports":{"html":false},"textdomain":"sethstha","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"postFrom":{"type":"string","default":"default"},"postUrl":{"type":"string"},"showNav":{"type":"boolean","default":true},"showPag":{"type":"boolean","default":true},"autoSlide":{"type":"boolean","default":true},"delay":{"type":"string","default":"300"},"showPostTitle":{"type":"boolean","default":true},"showPostExcerpt":{"type":"boolean","default":true}}}');
 
 /***/ })
 

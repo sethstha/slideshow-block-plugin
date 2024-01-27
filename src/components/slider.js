@@ -13,7 +13,6 @@ export function Slider({ attributes }) {
 		delay,
 		showPostTitle,
 		showPostExcerpt,
-		showPostCategories,
 	} = attributes;
 
 	const [posts, setPosts] = useState([]);
@@ -89,6 +88,8 @@ export function Slider({ attributes }) {
 							link={post.link}
 							title={post.title.rendered}
 							featuredImage={post.featured_media}
+							desc={post.excerpt.rendered}
+							attributes={attributes}
 						/>
 					))}
 				</div>

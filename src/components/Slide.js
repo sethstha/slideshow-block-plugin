@@ -1,8 +1,24 @@
 import apiFetch from '@wordpress/api-fetch';
 import { useEffect, useState } from '@wordpress/element';
 
-export default function Slide({ title, link, featuredImage }) {
+export default function Slide({
+	title,
+	link,
+	featuredImage,
+	desc,
+	attributes,
+}) {
 	const [image, setImage] = useState();
+	const {
+		postFrom,
+		postUrl,
+		showNav,
+		showPag,
+		autoSlide,
+		delay,
+		showPostTitle,
+		showPostExcerpt,
+	} = attributes;
 
 	useEffect(() => {
 		if (featuredImage !== 0) {
@@ -33,6 +49,10 @@ export default function Slide({ title, link, featuredImage }) {
 					<a href={link} target="_blank">
 						{title}
 					</a>
+
+					{desc && showPostExcerpt ? (
+						<div dangerouslySetInnerHTML={{ __html: desc }} />
+					) : null}
 				</figcaption>
 			</figure>
 		</div>
