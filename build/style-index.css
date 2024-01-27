@@ -32,10 +32,11 @@
 }
 .sethstha-slide img {
   border-radius: 5px;
-  height: 300px;
+  height: 400px;
   -o-object-fit: cover;
      object-fit: cover;
   display: block;
+  width: 100%;
 }
 .sethstha-slide.has-thumbnail figure {
   position: relative;
@@ -47,6 +48,12 @@
   right: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.4);
+}
+.sethstha-slide.has-thumbnail figcaption a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 .sethstha-slider-nav {
@@ -71,10 +78,10 @@
   fill: #fff;
 }
 .sethstha-slider-nav--prev {
-  left: 0;
+  left: 10px;
 }
 .sethstha-slider-nav--next {
-  right: 0;
+  right: 10px;
 }
 
 @media (min-width: 768px) {
