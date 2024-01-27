@@ -262,6 +262,15 @@ function Slider({
 
   // Use index for css to transform
   const currentTransform = -activeIndex * 100;
+
+  // Handle keyboard navigation
+  const handleKeyPress = event => {
+    if (event.key === 'ArrowRight') {
+      onNextPress();
+    } else if (event.key === 'ArrowLeft') {
+      onPrevPress();
+    }
+  };
   const renderPagination = () => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "sethstha-pagination"
@@ -273,7 +282,8 @@ function Slider({
     })));
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sethstha-slider-wrapper"
+    className: "sethstha-slider-wrapper",
+    onKeyDown: handleKeyPress
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider"
   }, showNav ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {

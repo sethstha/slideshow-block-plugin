@@ -56,6 +56,15 @@ export function Slider({ attributes }) {
 	// Use index for css to transform
 	const currentTransform = -activeIndex * 100;
 
+	// Handle keyboard navigation
+	const handleKeyPress = (event) => {
+		if (event.key === 'ArrowRight') {
+			onNextPress();
+		} else if (event.key === 'ArrowLeft') {
+			onPrevPress();
+		}
+	};
+
 	const renderPagination = () => {
 		return (
 			<div className="sethstha-pagination">
@@ -71,7 +80,7 @@ export function Slider({ attributes }) {
 		);
 	};
 	return (
-		<div className="sethstha-slider-wrapper">
+		<div className="sethstha-slider-wrapper" onKeyDown={handleKeyPress}>
 			<div className="sethstha-slider">
 				{showNav ? (
 					<>
