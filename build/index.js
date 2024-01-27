@@ -283,19 +283,23 @@ function Slider({
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider-wrapper",
-    onKeyDown: handleKeyPress
+    onKeyDown: handleKeyPress,
+    tabIndex: "0",
+    "aria-description": "Post Slideshow"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider"
   }, showNav ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     type: "button",
     className: "sethstha-slider-nav sethstha-slider-nav--prev",
-    onClick: onPrevPress
+    onClick: onPrevPress,
+    "aria-label": "Go to previous slide"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"]
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     type: "button",
     className: "sethstha-slider-nav sethstha-slider-nav--next",
-    onClick: onNextPress
+    onClick: onNextPress,
+    "aria-label": "Go to next slide"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__["default"]
   }))) : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {

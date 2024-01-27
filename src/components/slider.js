@@ -80,7 +80,12 @@ export function Slider({ attributes }) {
 		);
 	};
 	return (
-		<div className="sethstha-slider-wrapper" onKeyDown={handleKeyPress}>
+		<div
+			className="sethstha-slider-wrapper"
+			onKeyDown={handleKeyPress}
+			tabIndex="0"
+			aria-description="Post Slideshow"
+		>
 			<div className="sethstha-slider">
 				{showNav ? (
 					<>
@@ -88,6 +93,7 @@ export function Slider({ attributes }) {
 							type="button"
 							className="sethstha-slider-nav sethstha-slider-nav--prev"
 							onClick={onPrevPress}
+							aria-label="Go to previous slide"
 						>
 							<Icon icon={arrowLeft} />
 						</button>
@@ -95,6 +101,7 @@ export function Slider({ attributes }) {
 							type="button"
 							className="sethstha-slider-nav sethstha-slider-nav--next"
 							onClick={onNextPress}
+							aria-label="Go to next slide"
 						>
 							<Icon icon={arrowRight} />
 						</button>
