@@ -55,11 +55,12 @@
   text-decoration: none;
   color: #fff;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 24px;
   margin-bottom: 10px;
 }
 .sethstha-slide.has-thumbnail figcaption p {
   margin-top: 0;
+  font-size: 14px;
 }
 
 .sethstha-slider-nav {
@@ -79,7 +80,7 @@
   transition: all 0.3s ease-in-out;
 }
 .sethstha-slider-nav:hover {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.8);
 }
 .sethstha-slider-nav svg {
   fill: #fff;
@@ -93,7 +94,7 @@
 
 .sethstha-pagination {
   position: absolute;
-  bottom: 8px;
+  bottom: 14px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
