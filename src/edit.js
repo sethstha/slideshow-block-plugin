@@ -24,7 +24,6 @@ export default function Edit({ attributes, setAttributes }) {
 		delay,
 		showPostTitle,
 		showPostExcerpt,
-		showPostCategories,
 	} = attributes;
 
 	const [customURL, setCustomURL] = useState(postUrl);
@@ -70,10 +69,6 @@ export default function Edit({ attributes, setAttributes }) {
 
 	const onPostShowExcerptChange = (val) => {
 		setAttributes({ showPostExcerpt: val });
-	};
-
-	const onPostShowCategoriesChange = (val) => {
-		setAttributes({ showPostCategories: val });
 	};
 
 	const onCustomURLUpdate = () => {

@@ -113,27 +113,6 @@ export function Slider({ attributes }) {
 			onTouchMove={onTouchMove}
 		>
 			<div className="sethstha-slider">
-				{showNav ? (
-					<>
-						<button
-							type="button"
-							className="sethstha-slider-nav sethstha-slider-nav--prev"
-							onClick={onPrevPress}
-							aria-label="Go to previous slide"
-						>
-							<Icon icon={arrowLeft} />
-						</button>
-						<button
-							type="button"
-							className="sethstha-slider-nav sethstha-slider-nav--next"
-							onClick={onNextPress}
-							aria-label="Go to next slide"
-						>
-							<Icon icon={arrowRight} />
-						</button>
-					</>
-				) : null}
-
 				<div
 					className="sethstha-slides"
 					style={{ transform: `translateX(${currentTransform}%)` }}
@@ -149,8 +128,28 @@ export function Slider({ attributes }) {
 						/>
 					))}
 				</div>
-				{showPag ? renderPagination() : null}
 			</div>
+			{showPag ? renderPagination() : null}
+			{showNav ? (
+				<>
+					<button
+						type="button"
+						className="sethstha-slider-nav sethstha-slider-nav--prev"
+						onClick={onPrevPress}
+						aria-label="Go to previous slide"
+					>
+						<Icon icon={arrowLeft} />
+					</button>
+					<button
+						type="button"
+						className="sethstha-slider-nav sethstha-slider-nav--next"
+						onClick={onNextPress}
+						aria-label="Go to next slide"
+					>
+						<Icon icon={arrowRight} />
+					</button>
+				</>
+			) : null}
 		</div>
 	);
 }

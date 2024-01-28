@@ -316,7 +316,19 @@ function Slider({
     onTouchMove: onTouchMove
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slider"
-  }, showNav ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "sethstha-slides",
+    style: {
+      transform: `translateX(${currentTransform}%)`
+    }
+  }, posts.map(post => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_slide__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    key: post.id,
+    link: post.link,
+    title: post.title.rendered,
+    featuredImage: post.featured_media,
+    desc: post.excerpt.rendered,
+    attributes: attributes
+  })))), showPag ? renderPagination() : null, showNav ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     type: "button",
     className: "sethstha-slider-nav sethstha-slider-nav--prev",
     onClick: onPrevPress,
@@ -330,19 +342,7 @@ function Slider({
     "aria-label": "Go to next slide"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"], {
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__["default"]
-  }))) : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sethstha-slides",
-    style: {
-      transform: `translateX(${currentTransform}%)`
-    }
-  }, posts.map(post => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_slide__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    key: post.id,
-    link: post.link,
-    title: post.title.rendered,
-    featuredImage: post.featured_media,
-    desc: post.excerpt.rendered,
-    attributes: attributes
-  }))), showPag ? renderPagination() : null));
+  }))) : null);
 }
 
 /***/ }),
@@ -390,8 +390,7 @@ function Edit({
     autoSlide,
     delay,
     showPostTitle,
-    showPostExcerpt,
-    showPostCategories
+    showPostExcerpt
   } = attributes;
   const [customURL, setCustomURL] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.useState)(postUrl);
   const postControlOption = [{
@@ -437,11 +436,6 @@ function Edit({
   const onPostShowExcerptChange = val => {
     setAttributes({
       showPostExcerpt: val
-    });
-  };
-  const onPostShowCategoriesChange = val => {
-    setAttributes({
-      showPostCategories: val
     });
   };
   const onCustomURLUpdate = () => {
@@ -529,7 +523,8 @@ __webpack_require__.r(__webpack_exports__);
 
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_3__.name, {
   ..._block_json__WEBPACK_IMPORTED_MODULE_3__,
-  edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"]
+  edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"],
+  save: () => null
 });
 
 /***/ }),
@@ -644,7 +639,7 @@ module.exports = window["wp"]["primitives"];
   \************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"sethstha/sethstha-slideshow","version":"0.1.0","title":"Posts Slideshow ","category":"design","icon":"hammer","description":"Shows slideshow of latest blog posts","example":{},"supports":{"html":false},"textdomain":"sethstha","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"postFrom":{"type":"string","default":"default"},"postUrl":{"type":"string"},"showNav":{"type":"boolean","default":true},"showPag":{"type":"boolean","default":true},"autoSlide":{"type":"boolean","default":true},"delay":{"type":"string","default":"3000"},"showPostTitle":{"type":"boolean","default":true},"showPostExcerpt":{"type":"boolean","default":true}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"sethstha/sethstha-slideshow","version":"0.1.0","title":"Posts Slideshow ","category":"design","icon":"hammer","description":"Shows slideshow of latest blog posts","example":{},"supports":{"html":false},"textdomain":"sethstha","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","render":"file:./render.php","attributes":{"postFrom":{"type":"string","default":"default"},"postUrl":{"type":"string"},"showNav":{"type":"boolean","default":true},"showPag":{"type":"boolean","default":true},"autoSlide":{"type":"boolean","default":true},"delay":{"type":"string","default":"3000"},"showPostTitle":{"type":"boolean","default":true},"showPostExcerpt":{"type":"boolean","default":true}}}');
 
 /***/ })
 
