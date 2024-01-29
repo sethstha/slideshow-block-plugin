@@ -136,12 +136,7 @@ function Slide({
 }) {
   const [image, setImage] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)();
   const {
-    postFrom,
     postUrl,
-    showNav,
-    showPag,
-    autoSlide,
-    delay,
     showPostTitle,
     showPostExcerpt
   } = attributes;
@@ -149,17 +144,9 @@ function Slide({
   // Fetch image depending upon the option
   const fetchImage = async () => {
     if (featuredImage !== 0) {
-      if (postFrom === 'custom') {
-        const response = await fetch(`https://${postUrl}/wp-json/wp/v2/media/${featuredImage}`);
-        const image = await response.json();
-        setImage(image);
-      } else {
-        _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
-          path: `/wp/v2/media/${featuredImage}`
-        }).then(image => {
-          setImage(image);
-        });
-      }
+      const response = await fetch(`https://${postUrl}/wp-json/wp/v2/media/${featuredImage}`);
+      const image = await response.json();
+      setImage(image);
     }
   };
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
@@ -215,7 +202,6 @@ function Slider({
   attributes
 }) {
   const {
-    postFrom,
     postUrl,
     showNav,
     showPag,
@@ -227,32 +213,17 @@ function Slider({
   const [touchStart, setTouchStart] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)(null);
   const [touchEnd, setTouchEnd] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)(null);
 
-  // Get url depending upon the option selected on the block
-  const getURL = () => {
-    if (postFrom === 'custom' && postUrl) {
-      return `https://${postUrl}/wp-json/wp/v2/posts`;
-    } else {
-      return '/wp/v2/posts';
-    }
-  };
-
   // Fetch posts depending on the URL
   const fetchData = async () => {
-    if (postFrom === 'custom') {
-      const response = await fetch(getURL());
-      const posts = await response.json();
-      setPosts(posts);
-    } else {
-      _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
-        path: getURL()
-      }).then(posts => setPosts(posts));
-    }
+    const response = await fetch(`https://${postUrl}/wp-json/wp/v2/posts`);
+    const posts = await response.json();
+    setPosts(posts);
   };
 
   // refetch data when posts, post from or post url changes
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
     fetchData();
-  }, [postFrom, postUrl]);
+  }, [postUrl]);
   const onPrevPress = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useCallback)(() => {
     setActiveIndex(prevIndex => (prevIndex - 1 + posts.length) % posts.length);
   }, [posts.length]);
@@ -299,7 +270,7 @@ function Slider({
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "sethstha-pagination"
     }, posts.map((_, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-      type: "button1",
+      type: "button",
       key: index,
       className: `sethstha-pagination-indicator ${index === activeIndex ? 'active' : ''}`,
       onClick: () => setActiveIndex(index),
@@ -383,7 +354,6 @@ function Edit({
   setAttributes
 }) {
   const {
-    postFrom,
     postUrl,
     showNav,
     showPag,
@@ -400,11 +370,6 @@ function Edit({
     value: 'custom',
     label: 'Custom URL'
   }];
-  const onSlideFromChange = val => {
-    setAttributes({
-      postFrom: val
-    });
-  };
   const onSlideURLChange = val => {
     setCustomURL(val);
   };
@@ -447,13 +412,7 @@ function Edit({
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)()
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Slideshow Options', 'sethstha')
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.SelectControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Load Posts From', 'sethstha'),
-    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Choose from where you want to show your posts for slideslow. Default will load post from here', 'sethstha'),
-    value: postFrom,
-    options: postControlOption,
-    onChange: onSlideFromChange
-  }), postFrom === 'custom' ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalInputControl, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalInputControl, {
     label: "Url for posts",
     help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enter URL from where you want to fetch your posts example wptavern.com', 'sethstha'),
     value: postUrl,
@@ -463,7 +422,7 @@ function Edit({
     variant: "primary",
     type: "button",
     onClick: onCustomURLUpdate
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Fetch Posts', 'sethstha')))) : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Fetch Posts', 'sethstha'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show Navigation', 'sethstha'),
     help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enabling this will show arrow navigation to navigate slideslow', 'sethstha'),
     checked: showNav,
@@ -550,7 +509,12 @@ function Save({
   console.log(attributes);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: "sethstha-slider-wrapper",
-    class: "sethstha-slider-wrapper"
+    class: "sethstha-slider-wrapper",
+    "data-autoplay": attributes.autoSlide,
+    "data-autoplay-delay": attributes.delay,
+    "data-showtitle": attributes.showPostTitle,
+    "data-showexcerpt": attributes.showPostExcertp,
+    "data-url": attributes.postUrl
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     class: "sethstha-slider"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -559,10 +523,14 @@ function Save({
   }), attributes.showNav ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     id: "sethstha-slider-prev",
     class: "sethstha-slider-nav sethstha-slider-nav--prev"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    id: "sethstha-slider-prev",
-    class: "sethstha-slider-nav sethstha-slider-nav--prev"
-  })) : null, attributes.showPag ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    class: "dashicons  dashicons-arrow-left-alt"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    id: "sethstha-slider-next",
+    class: "sethstha-slider-nav sethstha-slider-nav--next"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    class: "dashicons  dashicons-arrow-right-alt"
+  }))) : null, attributes.showPag ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: "sethstha-pagination",
     class: "sethstha-pagination"
   }) : null));
@@ -680,7 +648,7 @@ module.exports = window["wp"]["primitives"];
   \************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"sethstha/sethstha-slideshow","version":"0.1.0","title":"Posts Slideshow ","category":"design","icon":"hammer","description":"Shows slideshow of latest blog posts","example":{},"supports":{"html":false},"textdomain":"sethstha","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"postFrom":{"type":"string","default":"default"},"postUrl":{"type":"string"},"showNav":{"type":"boolean","default":true},"showPag":{"type":"boolean","default":true},"autoSlide":{"type":"boolean","default":true},"delay":{"type":"string","default":"3000"},"showPostTitle":{"type":"boolean","default":true},"showPostExcerpt":{"type":"boolean","default":true}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"sethstha/sethstha-slideshow","version":"0.1.0","title":"Posts Slideshow ","category":"design","icon":"hammer","description":"Shows slideshow of latest blog posts","example":{},"supports":{"html":false},"textdomain":"sethstha","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"postUrl":{"type":"string","default":"wptavern.com"},"showNav":{"type":"boolean","default":true},"showPag":{"type":"boolean","default":true},"autoSlide":{"type":"boolean","default":true},"delay":{"type":"string","default":"3000"},"showPostTitle":{"type":"boolean","default":true},"showPostExcerpt":{"type":"boolean","default":true}}}');
 
 /***/ })
 

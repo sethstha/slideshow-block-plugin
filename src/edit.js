@@ -16,7 +16,6 @@ import { BaseControl } from '@wordpress/components';
 
 export default function Edit({ attributes, setAttributes }) {
 	const {
-		postFrom,
 		postUrl,
 		showNav,
 		showPag,
@@ -38,10 +37,6 @@ export default function Edit({ attributes, setAttributes }) {
 			label: 'Custom URL',
 		},
 	];
-
-	const onSlideFromChange = (val) => {
-		setAttributes({ postFrom: val });
-	};
 
 	const onSlideURLChange = (val) => {
 		setCustomURL(val);
@@ -79,39 +74,22 @@ export default function Edit({ attributes, setAttributes }) {
 		<div {...useBlockProps()}>
 			<InspectorControls>
 				<PanelBody title={__('Slideshow Options', 'sethstha')}>
-					<SelectControl
-						label={__('Load Posts From', 'sethstha')}
+					<InputControl
+						label="Url for posts"
 						help={__(
-							'Choose from where you want to show your posts for slideslow. Default will load post from here',
+							'Enter URL from where you want to fetch your posts example wptavern.com',
 							'sethstha'
 						)}
-						value={postFrom}
-						options={postControlOption}
-						onChange={onSlideFromChange}
+						value={postUrl}
+						onChange={onSlideURLChange}
+						type="url"
 					/>
-					{postFrom === 'custom' ? (
-						<>
-							<InputControl
-								label="Url for posts"
-								help={__(
-									'Enter URL from where you want to fetch your posts example wptavern.com',
-									'sethstha'
-								)}
-								value={postUrl}
-								onChange={onSlideURLChange}
-								type="url"
-							/>
-							<BaseControl>
-								<Button
-									variant="primary"
-									type="button"
-									onClick={onCustomURLUpdate}
-								>
-									{__('Fetch Posts', 'sethstha')}
-								</Button>
-							</BaseControl>
-						</>
-					) : null}
+					<BaseControl>
+						<Button variant="primary" type="button" onClick={onCustomURLUpdate}>
+							{__('Fetch Posts', 'sethstha')}
+						</Button>
+					</BaseControl>
+
 					<ToggleControl
 						label={__('Show Navigation', 'sethstha')}
 						help={__(

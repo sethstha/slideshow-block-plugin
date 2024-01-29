@@ -4,37 +4,24 @@ import { useState, useEffect, useCallback } from '@wordpress/element';
 import Slide from './slide';
 
 export function Slider({ attributes }) {
-	const { postFrom, postUrl, showNav, showPag, autoSlide, delay } = attributes;
+	const { postUrl, showNav, showPag, autoSlide, delay } = attributes;
 
 	const [posts, setPosts] = useState([]);
 	const [activeIndex, setActiveIndex] = useState(0);
 	const [touchStart, setTouchStart] = useState(null);
 	const [touchEnd, setTouchEnd] = useState(null);
 
-	// Get url depending upon the option selected on the block
-	const getURL = () => {
-		if (postFrom === 'custom' && postUrl) {
-			return `https://${postUrl}/wp-json/wp/v2/posts`;
-		} else {
-			return '/wp/v2/posts';
-		}
-	};
-
 	// Fetch posts depending on the URL
 	const fetchData = async () => {
-		if (postFrom === 'custom') {
-			const response = await fetch(getURL());
-			const posts = await response.json();
-			setPosts(posts);
-		} else {
-			apiFetch({ path: getURL() }).then((posts) => setPosts(posts));
-		}
+		const response = await fetch(`https://${postUrl}/wp-json/wp/v2/posts`);
+		const posts = await response.json();
+		setPosts(posts);
 	};
 
 	// refetch data when posts, post from or post url changes
 	useEffect(() => {
 		fetchData();
-	}, [postFrom, postUrl]);
+	}, [postUrl]);
 
 	const onPrevPress = useCallback(() => {
 		setActiveIndex(
@@ -92,7 +79,7 @@ export function Slider({ attributes }) {
 			<div className="sethstha-pagination">
 				{posts.map((_, index) => (
 					<button
-						type="button1"
+						type="button"
 						key={index}
 						className={`sethstha-pagination-indicator ${index === activeIndex ? 'active' : ''}`}
 						onClick={() => setActiveIndex(index)}

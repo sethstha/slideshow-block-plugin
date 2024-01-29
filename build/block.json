@@ -17,12 +17,9 @@
   "style": "file:./style-index.css",
   "viewScript": "file:./view.js",
   "attributes": {
-    "postFrom": {
-      "type": "string",
-      "default": "default"
-    },
     "postUrl": {
-      "type": "string"
+      "type": "string",
+      "default": "wptavern.com"
     },
     "showNav": {
       "type": "boolean",

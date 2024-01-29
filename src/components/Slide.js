@@ -9,33 +9,16 @@ export default function Slide({
 	attributes,
 }) {
 	const [image, setImage] = useState();
-	const {
-		postFrom,
-		postUrl,
-		showNav,
-		showPag,
-		autoSlide,
-		delay,
-		showPostTitle,
-		showPostExcerpt,
-	} = attributes;
+	const { postUrl, showPostTitle, showPostExcerpt } = attributes;
 
 	// Fetch image depending upon the option
 	const fetchImage = async () => {
 		if (featuredImage !== 0) {
-			if (postFrom === 'custom') {
-				const response = await fetch(
-					`https://${postUrl}/wp-json/wp/v2/media/${featuredImage}`
-				);
-				const image = await response.json();
-				setImage(image);
-			} else {
-				apiFetch({
-					path: `/wp/v2/media/${featuredImage}`,
-				}).then((image) => {
-					setImage(image);
-				});
-			}
+			const response = await fetch(
+				`https://${postUrl}/wp-json/wp/v2/media/${featuredImage}`
+			);
+			const image = await response.json();
+			setImage(image);
 		}
 	};
 
