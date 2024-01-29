@@ -100,26 +100,41 @@ function renderSlides() {
 }
 renderSlides();
 document.addEventListener('DOMContentLoaded', function () {
-  console.log('i am working');
   const slides = document.getElementById('sethstha-slides');
   const items = document.querySelectorAll('.sethstha-slide');
   const prevButton = document.getElementById('sethstha-slider-prev');
+  const nextButton = document.getElementById('sethstha-slider-next');
   let activeIndex = 0;
   let currentTransform = -activeIndex * 100;
+
+  // Updates current index;
   const updateIndex = index => {
     activeIndex = index;
   };
+
+  // update current transform;
   const updateTransform = () => {
     currentTransform = -activeIndex * 100;
   };
+
+  // When prev button is clicked
   const onPrevPress = () => {
     updateIndex((activeIndex - 1 + items.length) % items.length);
     updateTransform();
-    console.log(currentTransform);
     slides.style.transform = `translateX(${currentTransform}%)`;
-    console.log(activeIndex);
   };
+
+  // When next button is clicked
+  const onNextPress = () => {
+    console.log('next pressed');
+    updateIndex((activeIndex + 1) % items.length);
+    updateTransform();
+    slides.style.transform = `translateX(${currentTransform}%)`;
+  };
+
+  // Watch for click on prev button
   prevButton.addEventListener('click', onPrevPress);
+  nextButton.addEventListener('click', onNextPress);
 });
 /******/ })()
 ;
