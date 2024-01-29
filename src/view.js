@@ -109,8 +109,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	const prevButton = document.getElementById('sethstha-slider-prev');
 	const nextButton = document.getElementById('sethstha-slider-next');
 
-	let activeIndex = 0;
-	let currentTransform = -activeIndex * 100;
+	let activeIndex = 0,
+		currentTransform = -activeIndex * 100,
+		touchStart = null,
+		touchEnd = null;
 
 	// Updates current index;
 	const updateIndex = (index) => {
@@ -131,13 +133,48 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// When next button is clicked
 	const onNextPress = () => {
-		console.log('next pressed');
 		updateIndex((activeIndex + 1) % items.length);
 		updateTransform();
 		slides.style.transform = `translateX(${currentTransform}%)`;
 	};
 
+	setInterval(() => {
+		onNextPress();
+	}, 3000);
+
 	// Watch for click on prev button
 	prevButton.addEventListener('click', onPrevPress);
 	nextButton.addEventListener('click', onNextPress);
+
+	// Navigate slider using keyboard
+	document.addEventListener('keydown', (event) => {
+		if (event.key === 'ArrowRight') {
+			onNextPress();
+		} else if (event.key === 'ArrowLeft') {
+			onPrevPress();
+		}
+	});
+
+	slides.addEventListener('touchstart', (e) => {
+		console.log('touch start');
+		touchEnd = null;
+		touchStart = e.targetTouches[0].clientX;
+	});
+
+	slides.addEventListener('touchmove', (e) => {
+		touchEnd = e.targetTouches[0].clientX;
+	});
+
+	slides.addEventListener('touchend', () => {
+		if (!touchStart || !touchEnd) return;
+		const minSwipeDistance = 50;
+
+		const distance = touchStart - touchEnd;
+
+		if (distance > minSwipeDistance) {
+			onNextPress();
+		} else if (distance < -minSwipeDistance) {
+			onPrevPress();
+		}
+	});
 });
