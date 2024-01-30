@@ -47,14 +47,22 @@ document.addEventListener('DOMContentLoaded', function () {
   const renderSlidesHTML = slide => {
     try {
       const featuredImage = slide.featuredImage ? `<img src="${slide.featuredImage}" />` : null;
+      const formattedDate = new Date(slide.date);
       sliderContainer.innerHTML += `<div class="sethstha-slide ${featuredImage ? 'has-thumbnail' : ''}">
       <figure>
-        ${featuredImage}
-        <figcaption>
-        <a>${slide.title}</a>
-        ${slide.description}
-        </figcaption>
+        <a href="${slide.link}" target="_blank">
+          ${featuredImage}
+        </a>
       </figure>
+      <div class="sethstha-slide-description">
+        <div>
+          <a href="${slide.link}" target="_blank" class="sethstha-slide-title">${slide.title}</a>
+          <div class="sethstha-slide-date">
+            <span>${formattedDate.toLocaleDateString()}<span>
+          </div> 
+          <div class="sethstha-slide-excerpt">${slide.description}</div>
+        </div>
+      </div>
     </div>`;
     } catch (error) {
       console.error(error);
@@ -207,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Fetch posts from remote
   const getSliderData = async () => {
     // Fetch Posts
-    console.log('url is', remoteURL);
+
     async function getPosts() {
       const response = await fetch(`https://${remoteURL}/wp-json/wp/v2/posts`);
       const post = await response.json();
@@ -225,6 +233,8 @@ document.addEventListener('DOMContentLoaded', function () {
       return {
         id: post.id,
         title: post.title.rendered,
+        link: post.link,
+        date: post.date,
         description: post.excerpt.rendered,
         ...(post.featured_image !== 0 && {
           featuredImage: await getFeaturedImage(post.featured_media)
