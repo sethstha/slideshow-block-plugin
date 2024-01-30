@@ -37,10 +37,6 @@
 			"type": "string",
 			"default": "3000"
 		},
-		"showPostTitle": {
-			"type": "boolean",
-			"default": true
-		},
 		"showPostExcerpt": {
 			"type": "boolean",
 			"default": true

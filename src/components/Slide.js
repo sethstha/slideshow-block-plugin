@@ -9,7 +9,7 @@ export default function Slide({
 	attributes,
 }) {
 	const [image, setImage] = useState();
-	const { postUrl, showPostTitle, showPostExcerpt } = attributes;
+	const { postUrl, showPostExcerpt } = attributes;
 
 	// Fetch image depending upon the option
 	const fetchImage = async () => {
@@ -32,19 +32,21 @@ export default function Slide({
 		>
 			<figure>
 				{image ? (
-					<img
-						width={image.media_details.width}
-						height={image.media_details.height}
-						src={image.source_url}
-						alt={title}
-						srcSet={`${image.media_details.sizes.full.source_url} ${image.media_details.sizes.full.width}w, ${image.media_details.sizes.thumbnail.source_url} ${image.media_details.sizes.thumbnail.width}w`}
-						sizes={`(max-width: ${image.media_details.width}px) 100vw, ${image.media_details.width}px`}
-					/>
+					<a href={link} target="_blank">
+						<img
+							width={image.media_details.width}
+							height={image.media_details.height}
+							src={image.source_url}
+							alt={title}
+							srcSet={`${image.media_details.sizes.full.source_url} ${image.media_details.sizes.full.width}w, ${image.media_details.sizes.thumbnail.source_url} ${image.media_details.sizes.thumbnail.width}w`}
+							sizes={`(max-width: ${image.media_details.width}px) 100vw, ${image.media_details.width}px`}
+						/>
+					</a>
 				) : null}
 			</figure>
 
 			<div className="sethstha-slide-description">
-				{showPostTitle && title ? (
+				{title ? (
 					<a href={link} target="_blank" className="sethstha-slide-title">
 						{title}
 					</a>

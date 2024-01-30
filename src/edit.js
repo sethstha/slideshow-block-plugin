@@ -15,15 +15,8 @@ import { Button } from '@wordpress/components';
 import { BaseControl } from '@wordpress/components';
 
 export default function Edit({ attributes, setAttributes }) {
-	const {
-		postUrl,
-		showNav,
-		showPag,
-		autoSlide,
-		delay,
-		showPostTitle,
-		showPostExcerpt,
-	} = attributes;
+	const { postUrl, showNav, showPag, autoSlide, delay, showPostExcerpt } =
+		attributes;
 
 	const [customURL, setCustomURL] = useState(postUrl);
 
@@ -56,10 +49,6 @@ export default function Edit({ attributes, setAttributes }) {
 
 	const onSlideDelayChange = (val) => {
 		setAttributes({ delay: val });
-	};
-
-	const onPostShowTitleChange = (val) => {
-		setAttributes({ showPostTitle: val });
 	};
 
 	const onPostShowExcerptChange = (val) => {
@@ -131,12 +120,6 @@ export default function Edit({ attributes, setAttributes }) {
 					) : null}
 				</PanelBody>
 				<PanelBody title={__('Slideshow Posts Options', 'sethstha')}>
-					<ToggleControl
-						label={__('Show Post Title', 'sethstha')}
-						help={__('Enabling this will show post title on slide', 'sethstha')}
-						checked={showPostTitle}
-						onChange={onPostShowTitleChange}
-					/>
 					<ToggleControl
 						label={__('Show Post Excerpt', 'sethstha')}
 						help={__(

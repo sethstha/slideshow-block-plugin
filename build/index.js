@@ -137,7 +137,6 @@ function Slide({
   const [image, setImage] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)();
   const {
     postUrl,
-    showPostTitle,
     showPostExcerpt
   } = attributes;
 
@@ -154,16 +153,19 @@ function Slide({
   }, []);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: `sethstha-slide ${image ? 'has-thumbnail' : 'has-no-thumbnal'}`
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("figure", null, image ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("figure", null, image ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: link,
+    target: "_blank"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
     width: image.media_details.width,
     height: image.media_details.height,
     src: image.source_url,
     alt: title,
     srcSet: `${image.media_details.sizes.full.source_url} ${image.media_details.sizes.full.width}w, ${image.media_details.sizes.thumbnail.source_url} ${image.media_details.sizes.thumbnail.width}w`,
     sizes: `(max-width: ${image.media_details.width}px) 100vw, ${image.media_details.width}px`
-  }) : null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  })) : null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slide-description"
-  }, showPostTitle && title ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+  }, title ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: link,
     target: "_blank",
     className: "sethstha-slide-title"
@@ -363,7 +365,6 @@ function Edit({
     showPag,
     autoSlide,
     delay,
-    showPostTitle,
     showPostExcerpt
   } = attributes;
   const [customURL, setCustomURL] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.useState)(postUrl);
@@ -395,11 +396,6 @@ function Edit({
   const onSlideDelayChange = val => {
     setAttributes({
       delay: val
-    });
-  };
-  const onPostShowTitleChange = val => {
-    setAttributes({
-      showPostTitle: val
     });
   };
   const onPostShowExcerptChange = val => {
@@ -450,11 +446,6 @@ function Edit({
   }) : null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Slideshow Posts Options', 'sethstha')
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show Post Title', 'sethstha'),
-    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enabling this will show post title on slide', 'sethstha'),
-    checked: showPostTitle,
-    onChange: onPostShowTitleChange
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show Post Excerpt', 'sethstha'),
     help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enabling this will show post short description on slide', 'sethstha'),
     checked: showPostExcerpt,
@@ -662,7 +653,7 @@ module.exports = window["wp"]["primitives"];
   \************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"sethstha/sethstha-slideshow","version":"0.1.0","title":"Posts Slideshow ","category":"design","icon":"hammer","description":"Shows slideshow of latest blog posts","example":{},"supports":{"html":false},"textdomain":"sethstha","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"postUrl":{"type":"string","default":"wptavern.com"},"showNav":{"type":"boolean","default":true},"showPag":{"type":"boolean","default":true},"autoSlide":{"type":"boolean","default":true},"delay":{"type":"string","default":"3000"},"showPostTitle":{"type":"boolean","default":true},"showPostExcerpt":{"type":"boolean","default":true}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"sethstha/sethstha-slideshow","version":"0.1.0","title":"Posts Slideshow ","category":"design","icon":"hammer","description":"Shows slideshow of latest blog posts","example":{},"supports":{"html":false},"textdomain":"sethstha","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"postUrl":{"type":"string","default":"wptavern.com"},"showNav":{"type":"boolean","default":true},"showPag":{"type":"boolean","default":true},"autoSlide":{"type":"boolean","default":true},"delay":{"type":"string","default":"3000"},"showPostExcerpt":{"type":"boolean","default":true}}}');
 
 /***/ })
 
