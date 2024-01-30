@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		currentTransform,
 		touchStart,
 		touchEnd,
-		slidesLength;
+		slidesLength,
+		paginationIndicators;
 
 	// Initialize
 	const init = () => {
@@ -65,8 +66,11 @@ document.addEventListener('DOMContentLoaded', function () {
 			//First clear the older html
 			pagination.innerHTML = '';
 			for (let i = 0; i < number; i++) {
-				pagination.innerHTML += `<button type="button" class="sethstha-pagination-indicator" aria-label="Navigate to slide ${i}" aria-selected="false"></button>`;
+				pagination.innerHTML += `<button type="button" class="sethstha-pagination-indicator ${i === 0 ? 'active' : ''}" aria-label="Navigate to slide ${i}" aria-selected="false"></button>`;
 			}
+			paginationIndicators = document.querySelectorAll(
+				`.${slider.paginationIndicatorClass}`
+			);
 		} catch (error) {
 			console.error(error);
 		}
@@ -84,6 +88,18 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	};
 
+	const updatePaginationStyle = () => {
+		if (paginationIndicators) {
+			paginationIndicators.forEach((pag, index) => {
+				if (index === activeIndex) {
+					pag.classList.add('active');
+				} else {
+					pag.classList.remove('active');
+				}
+			});
+		}
+	};
+
 	// Navigate slider
 	const navigate = (direction) => {
 		try {
@@ -95,46 +111,13 @@ document.addEventListener('DOMContentLoaded', function () {
 				throw new Error('Please provide direction for navigation');
 			}
 			currentTransform = -activeIndex * 100;
-			console.log('current transform', currentTransform);
 			sliderContainer.style.transform = `translateX(${currentTransform}%)`;
+			if (paginationIndicators) {
+				updatePaginationStyle();
+			}
 		} catch (error) {
 			console.log(error);
 		}
-	};
-
-	// Get array object of data
-	const getSliderData = async () => {
-		// Fetch Posts
-		async function getPosts() {
-			const response = await fetch('https://wptavern.com/wp-json/wp/v2/posts');
-			const post = await response.json();
-			return post;
-		}
-
-		// Fetch featured image
-		async function getFeaturedImage(id) {
-			const response = await fetch(
-				`https://wptavern.com/wp-json/wp/v2/media/${id}`
-			);
-			const image = await response.json();
-			return image.source_url;
-		}
-
-		const posts = await getPosts();
-		const filteredPosts = await Promise.all(
-			posts.map(async (post) => {
-				return {
-					id: post.id,
-					title: post.title.rendered,
-					description: post.excerpt.rendered,
-					...(post.featured_image !== 0 && {
-						featuredImage: await getFeaturedImage(post.featured_media),
-					}),
-				};
-			})
-		);
-
-		return filteredPosts;
 	};
 
 	// Configure keyboard navigation
@@ -157,20 +140,93 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	};
 
+	// Configure touch navigation on touch devices
+	const configureTouchNav = () => {
+		if (sliderContainer) {
+			sliderContainer.addEventListener('touchstart', (e) => {
+				touchEnd = null;
+				touchStart = e.targetTouches[0].clientX;
+			});
+
+			sliderContainer.addEventListener('touchmove', (e) => {
+				touchEnd = e.targetTouches[0].clientX;
+			});
+
+			sliderContainer.addEventListener('touchend', () => {
+				if (!touchStart || !touchEnd) return;
+				const minSwipeDistance = 50;
+				const distance = touchStart - touchEnd;
+				if (distance > minSwipeDistance) {
+					navigate('next');
+				} else if (distance < -minSwipeDistance) {
+					navigate('prev');
+				}
+			});
+		}
+	};
+
+	const configurePagNav = () => {
+		if (paginationIndicators) {
+			paginationIndicators.forEach((pag, index) => {
+				pag.addEventListener('click', () => {
+					activeIndex = index;
+					currentTransform = -index * 100;
+					sliderContainer.style.transform = `translateX(${currentTransform}%)`;
+					updatePaginationStyle();
+				});
+			});
+		}
+	};
+
 	// Configures navigation
 	const configureNavigation = () => {
 		configureButtonNav();
 		configureKeyboardNav();
+		configureTouchNav();
+		configurePagNav();
+	};
+
+	// Fetch posts from remote
+	const getSliderData = async () => {
+		// Fetch Posts
+		async function getPosts() {
+			const response = await fetch('https://rtcamp.com/wp-json/wp/v2/posts');
+			const post = await response.json();
+			return post;
+		}
+
+		// Fetch featured image
+		async function getFeaturedImage(id) {
+			const response = await fetch(
+				`https://rtcamp.com/wp-json/wp/v2/media/${id}`
+			);
+			const image = await response.json();
+			return image.source_url;
+		}
+
+		const posts = await getPosts();
+		const filteredPosts = await Promise.all(
+			posts.map(async (post) => {
+				return {
+					id: post.id,
+					title: post.title.rendered,
+					description: post.excerpt.rendered,
+					...(post.featured_image !== 0 && {
+						featuredImage: await getFeaturedImage(post.featured_media),
+					}),
+				};
+			})
+		);
+
+		return filteredPosts;
 	};
 
 	const renderSlider = async () => {
 		init();
 		const slides = await getSliderData();
 		slidesLength = slides.length;
-		console.log(slidesLength);
-		configureNavigation();
-		console.log(slides);
 		renderSliderHTML(slides);
+		configureNavigation();
 	};
 
 	renderSlider();
