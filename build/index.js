@@ -511,7 +511,7 @@ function Save({
     id: "sethstha-slider-wrapper",
     class: "sethstha-slider-wrapper",
     "data-autoplay": attributes.autoSlide,
-    "data-autoplay-delay": attributes.delay,
+    "data-delay": attributes.delay,
     "data-showtitle": attributes.showPostTitle,
     "data-showexcerpt": attributes.showPostExcertp,
     "data-url": attributes.postUrl

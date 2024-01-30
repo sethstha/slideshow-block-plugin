@@ -44,6 +44,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			pagination = document.getElementById(slider.paginationId);
 			cachedSlides = localStorage.getItem(slider.sliderId) || undefined;
 			url = sliderWrapper.dataset.url || 'wptavern.com';
+			autoPlay = JSON.parse(sliderWrapper.dataset.autoplay) || false;
+			delay = sliderWrapper.dataset.delay || 3000;
 		} catch (error) {
 			console.error(error);
 		}
@@ -72,14 +74,16 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Generate Pagination and Render it
 	const renderPaginationHTML = (number) => {
 		try {
-			//First clear the older html
-			pagination.innerHTML = '';
-			for (let i = 0; i < number; i++) {
-				pagination.innerHTML += `<button type="button" class="sethstha-pagination-indicator ${i === 0 ? 'active' : ''}" aria-label="Navigate to slide ${i}" aria-selected="false"></button>`;
+			if (pagination) {
+				//First clear the older html
+				pagination.innerHTML = '';
+				for (let i = 0; i < number; i++) {
+					pagination.innerHTML += `<button type="button" class="sethstha-pagination-indicator ${i === 0 ? 'active' : ''}" aria-label="Navigate to slide ${i}" aria-selected="false"></button>`;
+				}
+				paginationIndicators = document.querySelectorAll(
+					`.${slider.paginationIndicatorClass}`
+				);
 			}
-			paginationIndicators = document.querySelectorAll(
-				`.${slider.paginationIndicatorClass}`
-			);
 		} catch (error) {
 			console.error(error);
 		}
@@ -162,6 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	};
 
+	// Configure pagination
 	const configurePagNav = () => {
 		if (paginationIndicators) {
 			paginationIndicators.forEach((pag, index) => {
@@ -175,12 +180,22 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	};
 
+	// Configure auto play
+	const configureAutoPlay = () => {
+		if (autoPlay) {
+			setInterval(() => {
+				navigate('next');
+			}, delay);
+		}
+	};
+
 	// Configures navigation
 	const configureNavigation = () => {
 		configureButtonNav();
 		configureKeyboardNav();
 		configureTouchNav();
 		configurePagNav();
+		configureAutoPlay();
 	};
 
 	// Fetch posts from remote
@@ -223,7 +238,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			slidesLength = slides.length;
 			slides.forEach((slide) => renderSlidesHTML(slide));
 			renderPaginationHTML(slides.length);
-			configureNavigation();
 
 			// Add to local storage for cache
 			localStorage.setItem(slider.sliderId, JSON.stringify(slides));
@@ -238,16 +252,11 @@ document.addEventListener('DOMContentLoaded', function () {
 		if (cachedSlides) {
 			const parsedSlides = JSON.parse(cachedSlides);
 			renderSliderHTML(parsedSlides);
-
-			// Check in the background whether cached data is upto date
-			const slides = await getSliderData();
-			if (parsedSlides !== slides) {
-				renderSliderHTML(slides);
-			}
-		} else {
-			const slides = await getSliderData();
-			renderSliderHTML(slides);
 		}
+		// Later update content from remote
+		const slides = await getSliderData();
+		renderSliderHTML(slides);
+		configureNavigation();
 	};
 
 	renderSlider();
