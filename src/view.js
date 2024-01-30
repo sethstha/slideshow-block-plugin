@@ -308,8 +308,16 @@ document.addEventListener('DOMContentLoaded', function () {
 			const button = document.getElementById(slider.urlBtn);
 			if (button && input) {
 				button.addEventListener('click', () => {
-					console.log('clicked');
-					changeURL(input.value);
+					if (
+						input.value.match(
+							/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$/
+						)
+					) {
+						changeURL(input.value);
+					} else {
+						const container = document.getElementById('sethstha-url-changer');
+						container.classList.add('error');
+					}
 				});
 			}
 		} catch (error) {

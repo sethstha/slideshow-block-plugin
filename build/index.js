@@ -530,7 +530,12 @@ function Save({
     id: "sethstha-pagination",
     class: "sethstha-pagination"
   }) : null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    id: "sethstha-url-changer",
     class: "sethstha-url-changer"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    class: "sethstha-error-msg"
+  }, "Please input valid url like wptavern.com"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    class: "sethstha-input-group"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
     id: "sethstha-url",
     type: "url",
@@ -538,7 +543,7 @@ function Save({
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     id: "sethstha-url-btn",
     type: "button"
-  }, "Fetch Post From This Url")));
+  }, "Fetch Post From This Url"))));
 }
 
 /***/ }),

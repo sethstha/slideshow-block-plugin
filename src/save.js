@@ -22,11 +22,16 @@ export default function Save({ attributes }) {
 				) : null}
 			</div>
 
-			<div class="sethstha-url-changer">
-				<input id="sethstha-url" type="url" value={attributes.postUrl} />
-				<button id="sethstha-url-btn" type="button">
-					Fetch Post From This Url
-				</button>
+			<div id="sethstha-url-changer" class="sethstha-url-changer">
+				<p class="sethstha-error-msg">
+					Please input valid url like wptavern.com
+				</p>
+				<div class="sethstha-input-group">
+					<input id="sethstha-url" type="url" value={attributes.postUrl} />
+					<button id="sethstha-url-btn" type="button">
+						Fetch Post From This Url
+					</button>
+				</div>
 			</div>
 		</div>
 	);
