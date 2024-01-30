@@ -280,12 +280,13 @@ document.addEventListener('DOMContentLoaded', function () {
     try {
       const input = document.getElementById(slider.urlInput);
       const button = document.getElementById(slider.urlBtn);
+      const container = document.getElementById('sethstha-url-changer');
       if (button && input) {
         button.addEventListener('click', () => {
           if (input.value.match(/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$/)) {
             changeURL(input.value);
+            container.classList.remove('error');
           } else {
-            const container = document.getElementById('sethstha-url-changer');
             container.classList.add('error');
           }
         });
