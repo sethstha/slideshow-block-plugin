@@ -161,14 +161,18 @@ function Slide({
     alt: title,
     srcSet: `${image.media_details.sizes.full.source_url} ${image.media_details.sizes.full.width}w, ${image.media_details.sizes.thumbnail.source_url} ${image.media_details.sizes.thumbnail.width}w`,
     sizes: `(max-width: ${image.media_details.width}px) 100vw, ${image.media_details.width}px`
-  }) : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("figcaption", null, showPostTitle && title ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+  }) : null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "sethstha-slide-description"
+  }, showPostTitle && title ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: link,
-    target: "_blank"
+    target: "_blank",
+    className: "sethstha-slide-title"
   }, title) : null, desc && showPostExcerpt ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "sethstha-slide-excerpt",
     dangerouslySetInnerHTML: {
       __html: desc
     }
-  }) : null)));
+  }) : null));
 }
 
 /***/ }),

@@ -41,18 +41,22 @@ export default function Slide({
 						sizes={`(max-width: ${image.media_details.width}px) 100vw, ${image.media_details.width}px`}
 					/>
 				) : null}
-				<figcaption>
-					{showPostTitle && title ? (
-						<a href={link} target="_blank">
-							{title}
-						</a>
-					) : null}
-
-					{desc && showPostExcerpt ? (
-						<div dangerouslySetInnerHTML={{ __html: desc }} />
-					) : null}
-				</figcaption>
 			</figure>
+
+			<div className="sethstha-slide-description">
+				{showPostTitle && title ? (
+					<a href={link} target="_blank" className="sethstha-slide-title">
+						{title}
+					</a>
+				) : null}
+
+				{desc && showPostExcerpt ? (
+					<div
+						className="sethstha-slide-excerpt"
+						dangerouslySetInnerHTML={{ __html: desc }}
+					/>
+				) : null}
+			</div>
 		</div>
 	);
 }
