@@ -12,25 +12,17 @@ export default function Save({ attributes }) {
 		>
 			<div class="sethstha-slider">
 				<div id="sethstha-slides" class="sethstha-slides"></div>
-				{attributes.showNav ? (
-					<div>
-						<button
-							id="sethstha-slider-prev"
-							class="sethstha-slider-nav sethstha-slider-nav--prev"
-						>
-							<span class="dashicons  dashicons-arrow-left-alt"></span>
-						</button>
-						<button
-							id="sethstha-slider-next"
-							class="sethstha-slider-nav sethstha-slider-nav--next"
-						>
-							<span class="dashicons  dashicons-arrow-right-alt"></span>
-						</button>
-					</div>
-				) : null}
+				{attributes.showNav ? <div id="sethstha-navigation"></div> : null}
 				{attributes.showPag ? (
 					<div id="sethstha-pagination" class="sethstha-pagination"></div>
 				) : null}
+			</div>
+
+			<div class="sethstha-url-changer">
+				<input id="sethstha-url" type="url" value={attributes.postUrl} />
+				<button id="sethstha-url-btn" type="button">
+					Fetch Post From This Url
+				</button>
 			</div>
 		</div>
 	);

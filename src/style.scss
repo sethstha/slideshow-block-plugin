@@ -12,6 +12,10 @@
 }
 
 .sethstha-slider-wrapper {
+	width: 100%;
+}
+
+.sethstha-slider {
 	position: relative;
 	overflow: hidden;
 	width: 100%;
@@ -122,6 +126,12 @@
 	&.active {
 		background-color: #3858e9;
 	}
+}
+
+.sethstha-url-changer {
+	margin-top: 30px;
+	display: flex;
+	gap: 30px;
 }
 
 @media (min-width: 768px) {

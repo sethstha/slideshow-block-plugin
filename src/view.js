@@ -9,11 +9,14 @@ document.addEventListener('DOMContentLoaded', function () {
 		sliderWrapperId: 'sethstha-slider-wrapper',
 		sliderId: 'sethstha-slides',
 		slideClass: 'sethstha-slide',
+		navigationId: 'sethstha-navigation',
 		nextBtnId: 'sethstha-slider-next',
 		prevBtnId: 'sethstha-slider-prev',
 		paginationId: 'sethstha-pagination',
 		paginationIndicatorClass: 'sethstha-pagination-indicator',
 		defaultActiveIndex: 0,
+		urlInput: 'sethstha-url',
+		urlBtn: 'sethstha-url-btn',
 	};
 
 	let sliderWrapper,
@@ -30,22 +33,22 @@ document.addEventListener('DOMContentLoaded', function () {
 		cachedSlides,
 		autoPlay,
 		delay,
-		url;
+		remoteURL,
+		navigation;
 
 	// Initialize
 	const init = () => {
 		try {
 			sliderWrapper = document.getElementById(slider.sliderWrapperId);
 			sliderContainer = document.getElementById(slider.sliderId);
-			prevButton = document.getElementById(slider.prevBtnId);
-			nextButton = document.getElementById(slider.nextBtnId);
 			activeIndex = slider.defaultActiveIndex;
 			currentTransform = -activeIndex * 100;
 			pagination = document.getElementById(slider.paginationId);
 			cachedSlides = localStorage.getItem(slider.sliderId) || undefined;
-			url = sliderWrapper.dataset.url || 'wptavern.com';
+			remoteURL = sliderWrapper.dataset.url || 'wptavern.com';
 			autoPlay = JSON.parse(sliderWrapper.dataset.autoplay) || false;
 			delay = sliderWrapper.dataset.delay || 3000;
+			navigation = document.getElementById(slider.navigationId);
 		} catch (error) {
 			console.error(error);
 		}
@@ -89,6 +92,24 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	};
 
+	const renderNavigationHTML = () => {
+		navigation.innerHTML = `<button
+    id="sethstha-slider-prev"
+    class="sethstha-slider-nav sethstha-slider-nav--prev"
+  >
+    <span class="dashicons  dashicons-arrow-left-alt"></span>
+  </button>
+  <button
+    id="sethstha-slider-next"
+    class="sethstha-slider-nav sethstha-slider-nav--next"
+  >
+    <span class="dashicons  dashicons-arrow-right-alt"></span>
+  </button>`;
+		prevButton = document.getElementById(slider.prevBtnId);
+		nextButton = document.getElementById(slider.nextBtnId);
+	};
+
+	// Add active class to pagination
 	const updatePaginationStyle = () => {
 		if (paginationIndicators) {
 			paginationIndicators.forEach((pag, index) => {
@@ -135,9 +156,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Configure button navigation
 	const configureButtonNav = () => {
-		if (prevButton && nextButton) {
-			prevButton.addEventListener('click', () => navigate('prev'));
-			nextButton.addEventListener('click', () => navigate('next'));
+		if (navigation) {
+			renderNavigationHTML();
+			if (prevButton && nextButton) {
+				prevButton.addEventListener('click', () => navigate('prev'));
+				nextButton.addEventListener('click', () => navigate('next'));
+			}
 		}
 	};
 
@@ -201,15 +225,18 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Fetch posts from remote
 	const getSliderData = async () => {
 		// Fetch Posts
+		console.log('url is', remoteURL);
 		async function getPosts() {
-			const response = await fetch(`https://${url}/wp-json/wp/v2/posts`);
+			const response = await fetch(`https://${remoteURL}/wp-json/wp/v2/posts`);
 			const post = await response.json();
 			return post;
 		}
 
 		// Fetch featured image
 		async function getFeaturedImage(id) {
-			const response = await fetch(`https://${url}/wp-json/wp/v2/media/${id}`);
+			const response = await fetch(
+				`https://${remoteURL}/wp-json/wp/v2/media/${id}`
+			);
 			const image = await response.json();
 			return image.source_url;
 		}
@@ -231,6 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		return filteredPosts;
 	};
 
+	// Render actual slide markup
 	const renderSliderHTML = (slides) => {
 		try {
 			// Clear older data
@@ -238,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			slidesLength = slides.length;
 			slides.forEach((slide) => renderSlidesHTML(slide));
 			renderPaginationHTML(slides.length);
-
+			configureNavigation();
 			// Add to local storage for cache
 			localStorage.setItem(slider.sliderId, JSON.stringify(slides));
 		} catch (error) {
@@ -246,18 +274,49 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	};
 
-	const renderSlider = async () => {
-		init();
+	// Renders posts from remote
+	const renderSliderFromRemote = () => {
+		console.log('remote data called');
+		getSliderData().then((data) => {
+			renderSliderHTML(data);
+		});
+	};
 
+	// Renders slider content from cache
+	const renderSliderFromCache = () => {
 		if (cachedSlides) {
 			const parsedSlides = JSON.parse(cachedSlides);
 			renderSliderHTML(parsedSlides);
 		}
-		// Later update content from remote
-		const slides = await getSliderData();
-		renderSliderHTML(slides);
-		configureNavigation();
+	};
+
+	// Actual function to render everything
+	const renderSlider = () => {
+		init();
+		renderSliderFromCache();
+		renderSliderFromRemote();
+	};
+
+	const changeURL = (url) => {
+		remoteURL = url;
+		renderSliderFromRemote();
+	};
+
+	const changeURLFromButton = () => {
+		try {
+			const input = document.getElementById(slider.urlInput);
+			const button = document.getElementById(slider.urlBtn);
+			if (button && input) {
+				button.addEventListener('click', () => {
+					console.log('clicked');
+					changeURL(input.value);
+				});
+			}
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	renderSlider();
+	changeURLFromButton();
 });

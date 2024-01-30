@@ -520,20 +520,21 @@ function Save({
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: "sethstha-slides",
     class: "sethstha-slides"
-  }), attributes.showNav ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    id: "sethstha-slider-prev",
-    class: "sethstha-slider-nav sethstha-slider-nav--prev"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    class: "dashicons  dashicons-arrow-left-alt"
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    id: "sethstha-slider-next",
-    class: "sethstha-slider-nav sethstha-slider-nav--next"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    class: "dashicons  dashicons-arrow-right-alt"
-  }))) : null, attributes.showPag ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }), attributes.showNav ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    id: "sethstha-navigation"
+  }) : null, attributes.showPag ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: "sethstha-pagination",
     class: "sethstha-pagination"
-  }) : null));
+  }) : null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    class: "sethstha-url-changer"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    id: "sethstha-url",
+    type: "url",
+    value: attributes.postUrl
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    id: "sethstha-url-btn",
+    type: "button"
+  }, "Fetch Post From This Url")));
 }
 
 /***/ }),
