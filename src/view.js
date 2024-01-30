@@ -137,16 +137,30 @@ document.addEventListener('DOMContentLoaded', function () {
 		return filteredPosts;
 	};
 
+	// Configure keyboard navigation
+	const configureKeyboardNav = () => {
+		// Navigate slider using keyboard
+		document.addEventListener('keydown', (event) => {
+			if (event.key === 'ArrowRight') {
+				navigate('next');
+			} else if (event.key === 'ArrowLeft') {
+				navigate('prev');
+			}
+		});
+	};
+
+	// Configure button navigation
+	const configureButtonNav = () => {
+		if (prevButton && nextButton) {
+			prevButton.addEventListener('click', () => navigate('prev'));
+			nextButton.addEventListener('click', () => navigate('next'));
+		}
+	};
+
 	// Configures navigation
 	const configureNavigation = () => {
-		try {
-			if (prevButton && nextButton) {
-				prevButton.addEventListener('click', () => navigate('prev'));
-				nextButton.addEventListener('click', () => navigate('next'));
-			}
-		} catch (error) {
-			console.error(error);
-		}
+		configureButtonNav();
+		configureKeyboardNav();
 	};
 
 	const renderSlider = async () => {
