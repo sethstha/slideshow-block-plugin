@@ -132,6 +132,7 @@ function Slide({
   link,
   featuredImage,
   desc,
+  date,
   attributes
 }) {
   const [image, setImage] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)();
@@ -139,6 +140,7 @@ function Slide({
     postUrl,
     showPostExcerpt
   } = attributes;
+  const formattedDate = new Date(date);
 
   // Fetch image depending upon the option
   const fetchImage = async () => {
@@ -165,16 +167,18 @@ function Slide({
     sizes: `(max-width: ${image.media_details.width}px) 100vw, ${image.media_details.width}px`
   })) : null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slide-description"
-  }, title ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, title ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: link,
     target: "_blank",
     className: "sethstha-slide-title"
-  }, title) : null, desc && showPostExcerpt ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, title) : null, date ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "sethstha-slide-date"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, formattedDate.toLocaleDateString())) : null, desc && showPostExcerpt ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "sethstha-slide-excerpt",
     dangerouslySetInnerHTML: {
       __html: desc
     }
-  }) : null));
+  }) : null)));
 }
 
 /***/ }),
@@ -304,7 +308,8 @@ function Slider({
     title: post.title.rendered,
     featuredImage: post.featured_media,
     desc: post.excerpt.rendered,
-    attributes: attributes
+    attributes: attributes,
+    date: post.date
   })))), showPag ? renderPagination() : null, showNav ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     type: "button",
     className: "sethstha-slider-nav sethstha-slider-nav--prev",

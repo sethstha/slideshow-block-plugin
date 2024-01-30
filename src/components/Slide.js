@@ -6,10 +6,12 @@ export default function Slide({
 	link,
 	featuredImage,
 	desc,
+	date,
 	attributes,
 }) {
 	const [image, setImage] = useState();
 	const { postUrl, showPostExcerpt } = attributes;
+	const formattedDate = new Date(date);
 
 	// Fetch image depending upon the option
 	const fetchImage = async () => {
@@ -46,18 +48,24 @@ export default function Slide({
 			</figure>
 
 			<div className="sethstha-slide-description">
-				{title ? (
-					<a href={link} target="_blank" className="sethstha-slide-title">
-						{title}
-					</a>
-				) : null}
-
-				{desc && showPostExcerpt ? (
-					<div
-						className="sethstha-slide-excerpt"
-						dangerouslySetInnerHTML={{ __html: desc }}
-					/>
-				) : null}
+				<div>
+					{title ? (
+						<a href={link} target="_blank" className="sethstha-slide-title">
+							{title}
+						</a>
+					) : null}
+					{date ? (
+						<div className="sethstha-slide-date">
+							<span>{formattedDate.toLocaleDateString()}</span>
+						</div>
+					) : null}
+					{desc && showPostExcerpt ? (
+						<div
+							className="sethstha-slide-excerpt"
+							dangerouslySetInnerHTML={{ __html: desc }}
+						/>
+					) : null}
+				</div>
 			</div>
 		</div>
 	);

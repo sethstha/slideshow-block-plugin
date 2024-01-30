@@ -112,6 +112,7 @@ export function Slider({ attributes }) {
 							featuredImage={post.featured_media}
 							desc={post.excerpt.rendered}
 							attributes={attributes}
+							date={post.date}
 						/>
 					))}
 				</div>

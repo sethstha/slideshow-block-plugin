@@ -69,6 +69,10 @@
   line-height: 24px;
   color: #868e96;
 }
+.sethstha-slide .sethstha-slide-date {
+  font-size: 14px;
+  font-style: italic;
+}
 .sethstha-slide.has-thumbnail figure {
   position: relative;
   margin-bottom: 0;
