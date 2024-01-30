@@ -1,180 +1,163 @@
-// fetches posts
-async function getPosts() {
-	const response = await fetch('https://wptavern.com/wp-json/wp/v2/posts');
-	const post = await response.json();
-	return post;
-}
+'use strict';
 
-// fetches featured image
-async function getFeaturedImage(id) {
-	const response = await fetch(
-		`https://wptavern.com/wp-json/wp/v2/media/${id}`
-	);
-	const image = await response.json();
-	return image.source_url;
-}
-
-// Fetches posts and feauted image and returns an array
-async function fetchPosts() {
-	const posts = await getPosts();
-	const filteredPosts = await Promise.all(
-		posts.map(async (post) => {
-			return {
-				id: post.id,
-				title: post.title.rendered,
-				description: post.excerpt.rendered,
-				...(post.featured_image !== 0 && {
-					featuredImage: await getFeaturedImage(post.featured_media),
-				}),
-			};
-		})
-	);
-
-	return filteredPosts;
-}
-
-// Generates HTML markup for slide
-function generateSlidesHTML(slide) {
-	try {
-		const container = document.getElementById('sethstha-slides');
-		const featuredImage = slide.featuredImage
-			? `<img src="${slide.featuredImage}" />`
-			: null;
-		container.innerHTML += `<div class="sethstha-slide ${featuredImage ? 'has-thumbnail' : ''}">
-		<figure>
-			${featuredImage}
-			<figcaption>
-			<a>${slide.title}</a>
-			${slide.description}
-			</figcaption>
-		</figure>
-	</div>`;
-	} catch (error) {
-		console.error(error);
-	}
-}
-
-function generatePaginationHTML(number) {
-	try {
-		const container = document.getElementById('sethstha-pagination');
-		container.innerHTML = ''; //Clear the div first
-		for (let i = 0; i < number; i++) {
-			container.innerHTML += `<button type="button" class="sethstha-pagination-indicator" aria-label="Navigate to slide ${i}" aria-selected="false"></button>`;
-		}
-	} catch (error) {
-		console.error(error);
-	}
-}
-
-// Actual logic of rendering slides
-function renderSlides() {
-	try {
-		const container = document.getElementById('sethstha-slides');
-		const slides = localStorage.getItem('sethstha-slides');
-
-		// When there is data saved to localstorage
-		if (slides && slides.length) {
-			const parsedSlides = JSON.parse(slides);
-			parsedSlides.map((slide) => generateSlidesHTML(slide));
-			generatePaginationHTML(parsedSlides.length);
-
-			/* Check whether local storage data is upto date or not
-			 * If not replace it with newer data
-			 */
-			fetchPosts().then((comparingSlides) => {
-				if (comparingSlides !== slides) {
-					container.innerHTML = ''; //Empty out the container
-					comparingSlides.map((slide) => generateSlidesHTML(slide));
-					generatePaginationHTML(comparingSlides.length);
-				}
-			});
-		} else {
-			// When there is no data on local storage
-			fetchPosts().then((newSlides) => {
-				container.innerHTML = ''; //Empty out the container
-				newSlides.map((slide) => generateSlidesHTML(slide));
-				generatePaginationHTML(newSlides.length);
-				localStorage.setItem('sethstha-slides', JSON.stringify(newSlides));
-			});
-		}
-	} catch (error) {
-		console.error(error);
-	}
-}
-renderSlides();
+/**
+ * Slider config
+ */
 
 document.addEventListener('DOMContentLoaded', function () {
-	const slides = document.getElementById('sethstha-slides');
-	const items = document.querySelectorAll('.sethstha-slide');
-	const prevButton = document.getElementById('sethstha-slider-prev');
-	const nextButton = document.getElementById('sethstha-slider-next');
-
-	let activeIndex = 0,
-		currentTransform = -activeIndex * 100,
-		touchStart = null,
-		touchEnd = null;
-
-	// Updates current index;
-	const updateIndex = (index) => {
-		activeIndex = index;
+	const slider = {
+		sliderId: 'sethstha-slides',
+		slideClass: 'sethstha-slide',
+		nextBtnId: 'sethstha-slider-next',
+		prevBtnId: 'sethstha-slider-prev',
+		paginationId: 'sethstha-pagination',
+		paginationIndicatorClass: 'sethstha-pagination-indicator',
+		defaultActiveIndex: 0,
 	};
 
-	// update current transform;
-	const updateTransform = () => {
-		currentTransform = -activeIndex * 100;
-	};
+	let sliderContainer,
+		prevButton,
+		nextButton,
+		pagination,
+		activeIndex,
+		currentTransform,
+		touchStart,
+		touchEnd,
+		slidesLength;
 
-	// When prev button is clicked
-	const onPrevPress = () => {
-		updateIndex((activeIndex - 1 + items.length) % items.length);
-		updateTransform();
-		slides.style.transform = `translateX(${currentTransform}%)`;
-	};
-
-	// When next button is clicked
-	const onNextPress = () => {
-		updateIndex((activeIndex + 1) % items.length);
-		updateTransform();
-		slides.style.transform = `translateX(${currentTransform}%)`;
-	};
-
-	setInterval(() => {
-		onNextPress();
-	}, 3000);
-
-	// Watch for click on prev button
-	prevButton.addEventListener('click', onPrevPress);
-	nextButton.addEventListener('click', onNextPress);
-
-	// Navigate slider using keyboard
-	document.addEventListener('keydown', (event) => {
-		if (event.key === 'ArrowRight') {
-			onNextPress();
-		} else if (event.key === 'ArrowLeft') {
-			onPrevPress();
+	// Initialize
+	const init = () => {
+		try {
+			sliderContainer = document.getElementById(slider.sliderId);
+			prevButton = document.getElementById(slider.prevBtnId);
+			nextButton = document.getElementById(slider.nextBtnId);
+			activeIndex = slider.defaultActiveIndex;
+			currentTransform = -activeIndex * 100;
+			pagination = document.getElementById(slider.paginationId);
+		} catch (error) {
+			console.error(error);
 		}
-	});
+	};
 
-	slides.addEventListener('touchstart', (e) => {
-		console.log('touch start');
-		touchEnd = null;
-		touchStart = e.targetTouches[0].clientX;
-	});
-
-	slides.addEventListener('touchmove', (e) => {
-		touchEnd = e.targetTouches[0].clientX;
-	});
-
-	slides.addEventListener('touchend', () => {
-		if (!touchStart || !touchEnd) return;
-		const minSwipeDistance = 50;
-
-		const distance = touchStart - touchEnd;
-
-		if (distance > minSwipeDistance) {
-			onNextPress();
-		} else if (distance < -minSwipeDistance) {
-			onPrevPress();
+	// Generate Slider HTML and Render it
+	const renderSlidesHTML = (slide) => {
+		try {
+			const featuredImage = slide.featuredImage
+				? `<img src="${slide.featuredImage}" />`
+				: null;
+			sliderContainer.innerHTML += `<div class="sethstha-slide ${featuredImage ? 'has-thumbnail' : ''}">
+      <figure>
+        ${featuredImage}
+        <figcaption>
+        <a>${slide.title}</a>
+        ${slide.description}
+        </figcaption>
+      </figure>
+    </div>`;
+		} catch (error) {
+			console.error(error);
 		}
-	});
+	};
+
+	// Generate Pagination and Render it
+	const renderPaginationHTML = (number) => {
+		try {
+			//First clear the older html
+			pagination.innerHTML = '';
+			for (let i = 0; i < number; i++) {
+				pagination.innerHTML += `<button type="button" class="sethstha-pagination-indicator" aria-label="Navigate to slide ${i}" aria-selected="false"></button>`;
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	// Render slider depending upon the data
+	const renderSliderHTML = (slides) => {
+		try {
+			// Clear older data
+			sliderContainer.innerHTML = '';
+			slides.forEach((slide) => renderSlidesHTML(slide));
+			renderPaginationHTML(slides.length);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	// Navigate slider
+	const navigate = (direction) => {
+		try {
+			if (direction === 'next') {
+				activeIndex = (activeIndex + 1) % slidesLength;
+			} else if (direction === 'prev') {
+				activeIndex = (activeIndex - 1 + slidesLength) % slidesLength;
+			} else {
+				throw new Error('Please provide direction for navigation');
+			}
+			currentTransform = -activeIndex * 100;
+			console.log('current transform', currentTransform);
+			sliderContainer.style.transform = `translateX(${currentTransform}%)`;
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	// Get array object of data
+	const getSliderData = async () => {
+		// Fetch Posts
+		async function getPosts() {
+			const response = await fetch('https://wptavern.com/wp-json/wp/v2/posts');
+			const post = await response.json();
+			return post;
+		}
+
+		// Fetch featured image
+		async function getFeaturedImage(id) {
+			const response = await fetch(
+				`https://wptavern.com/wp-json/wp/v2/media/${id}`
+			);
+			const image = await response.json();
+			return image.source_url;
+		}
+
+		const posts = await getPosts();
+		const filteredPosts = await Promise.all(
+			posts.map(async (post) => {
+				return {
+					id: post.id,
+					title: post.title.rendered,
+					description: post.excerpt.rendered,
+					...(post.featured_image !== 0 && {
+						featuredImage: await getFeaturedImage(post.featured_media),
+					}),
+				};
+			})
+		);
+
+		return filteredPosts;
+	};
+
+	// Configures navigation
+	const configureNavigation = () => {
+		try {
+			if (prevButton && nextButton) {
+				prevButton.addEventListener('click', () => navigate('prev'));
+				nextButton.addEventListener('click', () => navigate('next'));
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const renderSlider = async () => {
+		init();
+		const slides = await getSliderData();
+		slidesLength = slides.length;
+		console.log(slidesLength);
+		configureNavigation();
+		console.log(slides);
+		renderSliderHTML(slides);
+	};
+
+	renderSlider();
 });

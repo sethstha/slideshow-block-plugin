@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Plugin Name:       Posts Slideshow 
+ * Plugin Name:       Posts Slideshow
  * Description:       Shows slideshow of latest blog posts
  * Requires at least: 6.1
  * Requires PHP:      7.0
@@ -13,19 +14,20 @@
  * @package           sethstha
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly.
 }
 
 
-function render_sethstha_slideshow_block( $attributes ) {
-	// var_dump( $attributes );
+function render_sethstha_slideshow_block($attributes)
+{
+    // var_dump( $attributes );
 
-	$attributed = get_block_wrapper_attributes( $attributes );
+    $attributed = get_block_wrapper_attributes($attributes);
 
-	var_dump( $attributed );
+    var_dump($attributed);
 
-	return sprintf( '<div id="sethstha-slider-wrapper" class="sethstha-slider-wrapper" %1$s>
+    return sprintf('<div id="sethstha-slider-wrapper" class="sethstha-slider-wrapper" %1$s>
 		<div class="sethstha-slider">
 			<div id="sethstha-slides" class="sethstha-slides">
 
@@ -34,7 +36,7 @@ function render_sethstha_slideshow_block( $attributes ) {
 			<button id="sethstha-slider-prev" class="sethstha-slider-nav sethstha-slider-nav--prev">Next</button>
 			<div id="sethstha-pagination" class="sethstha-pagination"></div>
 		</div>
-	</div>', $attributed );
+	</div>', $attributed);
 }
 
 /**
@@ -44,11 +46,10 @@ function render_sethstha_slideshow_block( $attributes ) {
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
-function sethstha_slideshow_slideshow_block_init() {
-	register_block_type( __DIR__ . '/build', array(
-		// 'render_callback' => 'render_sethstha_slideshow_block',
-	) );
+function sethstha_slideshow_slideshow_block_init()
+{
+    register_block_type(__DIR__ . '/build', array(
+        // 'render_callback' => 'render_sethstha_slideshow_block',
+    ));
 }
-add_action( 'init', 'sethstha_slideshow_slideshow_block_init' );
-
-
+add_action('init', 'sethstha_slideshow_slideshow_block_init');
