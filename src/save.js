@@ -11,7 +11,11 @@ export default function Save({ attributes }) {
 			data-url={attributes.postUrl}
 		>
 			<div class="sethstha-slider">
-				<div id="sethstha-slides" class="sethstha-slides"></div>
+				<div id="sethstha-slides" class="sethstha-slides">
+					<div class="sethstha-loader">
+						<span class="sethstha-spinner"></span>
+					</div>
+				</div>
 				{attributes.showNav ? <div id="sethstha-navigation"></div> : null}
 				{attributes.showPag ? (
 					<div id="sethstha-pagination" class="sethstha-pagination"></div>

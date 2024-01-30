@@ -520,7 +520,11 @@ function Save({
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: "sethstha-slides",
     class: "sethstha-slides"
-  }), attributes.showNav ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    class: "sethstha-loader"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    class: "sethstha-spinner"
+  }))), attributes.showNav ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: "sethstha-navigation"
   }) : null, attributes.showPag ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: "sethstha-pagination",
