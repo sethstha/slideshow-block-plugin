@@ -505,6 +505,7 @@ __webpack_require__.r(__webpack_exports__);
 function Save({
   attributes
 }) {
+  const sliderClass = `sethstha-slider ${attributes.showPostExcertp ? '' : 'hide-excerpt'}`;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: "sethstha-slider-wrapper",
     class: "sethstha-slider-wrapper",
@@ -514,7 +515,7 @@ function Save({
     "data-showexcerpt": attributes.showPostExcertp,
     "data-url": attributes.postUrl
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    class: "sethstha-slider"
+    class: sliderClass
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: "sethstha-slides",
     class: "sethstha-slides"
@@ -656,7 +657,7 @@ module.exports = window["wp"]["primitives"];
   \************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"sethstha/sethstha-slideshow","version":"0.1.0","title":"Posts Slideshow ","category":"design","icon":"hammer","description":"Shows slideshow of latest blog posts","example":{},"supports":{"html":false},"textdomain":"sethstha","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"postUrl":{"type":"string","default":"wptavern.com"},"showNav":{"type":"boolean","default":true},"showPag":{"type":"boolean","default":true},"autoSlide":{"type":"boolean","default":true},"delay":{"type":"string","default":"3000"},"showPostExcerpt":{"type":"boolean","default":true}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"sethstha/sethstha-slideshow","version":"0.1.0","title":"Sethstha Posts Slideshow ","category":"design","icon":"slides","description":"Shows slideshow of latest blog posts","example":{},"supports":{"html":false},"textdomain":"sethstha","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"postUrl":{"type":"string","default":"wptavern.com"},"showNav":{"type":"boolean","default":true},"showPag":{"type":"boolean","default":true},"autoSlide":{"type":"boolean","default":true},"delay":{"type":"string","default":"3000"},"showPostExcerpt":{"type":"boolean","default":true}}}');
 
 /***/ })
 

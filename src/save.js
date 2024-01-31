@@ -1,4 +1,5 @@
 export default function Save({ attributes }) {
+	const sliderClass = `sethstha-slider ${attributes.showPostExcertp ? '' : 'hide-excerpt'}`;
 	return (
 		<div
 			id="sethstha-slider-wrapper"
@@ -9,7 +10,7 @@ export default function Save({ attributes }) {
 			data-showexcerpt={attributes.showPostExcertp}
 			data-url={attributes.postUrl}
 		>
-			<div class="sethstha-slider">
+			<div class={sliderClass}>
 				<div id="sethstha-slides" class="sethstha-slides">
 					<div class="sethstha-loader">
 						<span class="sethstha-spinner"></span>

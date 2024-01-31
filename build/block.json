@@ -3,9 +3,9 @@
   "apiVersion": 3,
   "name": "sethstha/sethstha-slideshow",
   "version": "0.1.0",
-  "title": "Posts Slideshow ",
+  "title": "Sethstha Posts Slideshow ",
   "category": "design",
-  "icon": "hammer",
+  "icon": "slides",
   "description": "Shows slideshow of latest blog posts",
   "example": {},
   "supports": {
