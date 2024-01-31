@@ -168,6 +168,12 @@
 		}
 	}
 
+	input {
+		padding: 10px 16px;
+		display: block;
+		width: 100%;
+	}
+
 	&.error {
 		.sethstha-error-msg {
 			display: block;

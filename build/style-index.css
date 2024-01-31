@@ -153,6 +153,11 @@
 .sethstha-url-changer button:hover {
   background: #2a95c5;
 }
+.sethstha-url-changer input {
+  padding: 10px 16px;
+  display: block;
+  width: 100%;
+}
 .sethstha-url-changer.error .sethstha-error-msg {
   display: block;
   font-size: 12px;
