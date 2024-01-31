@@ -39,7 +39,6 @@ export function Slider({ attributes }) {
 	// Autoplay the slide
 	useEffect(() => {
 		if (autoSlide && delay) {
-			console.log('auto play is on', parseInt(delay));
 			const autoplay = setInterval(onNextPress, delay);
 			return () => clearInterval(autoplay);
 		}

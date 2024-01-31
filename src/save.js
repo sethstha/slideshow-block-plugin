@@ -1,5 +1,4 @@
 export default function Save({ attributes }) {
-	console.log(attributes);
 	return (
 		<div
 			id="sethstha-slider-wrapper"

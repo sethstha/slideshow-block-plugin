@@ -247,7 +247,6 @@ function Slider({
   // Autoplay the slide
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
     if (autoSlide && delay) {
-      console.log('auto play is on', parseInt(delay));
       const autoplay = setInterval(onNextPress, delay);
       return () => clearInterval(autoplay);
     }
@@ -506,7 +505,6 @@ __webpack_require__.r(__webpack_exports__);
 function Save({
   attributes
 }) {
-  console.log(attributes);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: "sethstha-slider-wrapper",
     class: "sethstha-slider-wrapper",

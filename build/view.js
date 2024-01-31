@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
         updatePaginationStyle();
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
