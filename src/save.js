@@ -1,5 +1,5 @@
 export default function Save({ attributes }) {
-	const sliderClass = `sethstha-slider ${attributes.showPostExcertp ? '' : 'hide-excerpt'}`;
+	const sliderClass = `sethstha-slider ${attributes.showPostExcerpt ? '' : 'hide-excerpt'}`;
 	return (
 		<div
 			id="sethstha-slider-wrapper"
@@ -7,7 +7,7 @@ export default function Save({ attributes }) {
 			data-autoplay={attributes.autoSlide}
 			data-delay={attributes.delay}
 			data-showtitle={attributes.showPostTitle}
-			data-showexcerpt={attributes.showPostExcertp}
+			data-showexcerpt={attributes.showPostExcerpt}
 			data-url={attributes.postUrl}
 		>
 			<div class={sliderClass}>

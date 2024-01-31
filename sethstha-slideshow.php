@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name:       Posts Slideshow
- * Description:       Shows slideshow of latest blog posts
+ * Plugin Name:       Sethstha Posts Slideshow
+ * Description:       User friendly Responsive WordPress Rest API based slideshow plugin with touch and keyboard navigation support.
  * Requires at least: 6.1
  * Requires PHP:      7.0
  * Version:           0.1.0

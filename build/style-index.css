@@ -1,1 +1,205 @@
-.wp-block-sethstha-slideshow{background-color:#21759b;color:#fff;padding:2px}.sethstha-slider-wrapper{width:100%}.sethstha-slider{overflow:hidden;position:relative;width:100%}.sethstha-slider.hide-excerpt .sethstha-slide-excerpt{display:none}.sethstha-slides{display:flex;transition:transform .5s ease-in-out;width:100%}.sethstha-slide{display:flex;flex:0 0 100%;overflow:hidden;width:100%}.sethstha-slide .sethstha-slide-description{align-items:center;background-color:#e9ecef;display:flex;flex:1;flex-direction:column;justify-content:center;padding:30px}.sethstha-slide figure{flex:1;margin-bottom:0}.sethstha-slide figure img{display:block;height:100%;-o-object-fit:cover;object-fit:cover;width:100%}.sethstha-slide .sethstha-slide-title{color:#212529;font-size:24px;font-weight:700;margin-bottom:10px;text-decoration:none}.sethstha-slide .sethstha-slide-title:hover{color:#3858e9}.sethstha-slide .sethstha-slide-excerpt{color:#868e96;font-size:14px;line-height:24px}.sethstha-slide .sethstha-slide-date{font-size:14px;font-style:italic}.sethstha-slider-nav{align-items:center;background:rgba(0,0,0,.5);border:none;border-radius:100%;color:#fff;cursor:pointer;display:flex;height:30px;justify-content:center;position:absolute;top:50%;transform:translateY(-50%);transition:all .3s ease-in-out;width:30px;z-index:99}.sethstha-slider-nav:hover{background:rgba(0,0,0,.8)}.sethstha-slider-nav svg{fill:#fff}.sethstha-slider-nav--prev{left:10px}.sethstha-slider-nav--next{right:10px}.sethstha-pagination{bottom:14px;display:flex;gap:4px;left:50%;position:absolute;transform:translateX(-50%);z-index:999}.sethstha-pagination-indicator{background:#ccc;border:none;border-radius:100%;cursor:pointer;height:8px;padding:0;width:8px}.sethstha-pagination-indicator.active{background-color:#3858e9}.sethstha-url-changer{margin-top:30px}.sethstha-url-changer .sethstha-input-group{display:flex;gap:20px}.sethstha-url-changer .sethstha-error-msg{display:none}.sethstha-url-changer button{background:#21759b;border:none;border-radius:3px;color:#fff;cursor:pointer;font-size:14px;width:300px}.sethstha-url-changer button:hover{background:#2a95c5}.sethstha-url-changer.error .sethstha-error-msg{color:red;display:block;font-size:12px}.sethstha-url-changer.error input{border:1px solid red}.sethstha-loader{align-items:center;background:#f8f8f8;display:flex;height:300px;justify-content:center;width:100%}.sethstha-spinner{display:inline-block;height:80px;width:80px}.sethstha-spinner:after{animation:spin 1.2s linear infinite;border-color:#21759b transparent;border-radius:50%;border-style:solid;border-width:6px;content:" ";display:block;height:64px;margin:8px;width:64px}@keyframes spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@media(max-width:768px){.sethstha-slide{flex-direction:column}}
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/style.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.wp-block-sethstha-slideshow {
+  background-color: #21759b;
+  color: #fff;
+  padding: 2px;
+}
+
+.sethstha-slider-wrapper {
+  width: 100%;
+}
+
+.sethstha-slider {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+.sethstha-slider.hide-excerpt .sethstha-slide-excerpt {
+  display: none;
+}
+
+.sethstha-slides {
+  display: flex;
+  width: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.sethstha-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+}
+.sethstha-slide .sethstha-slide-description {
+  flex: 1;
+  background-color: #e9ecef;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.sethstha-slide figure {
+  flex: 1;
+  margin-bottom: 0;
+}
+.sethstha-slide figure img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+}
+.sethstha-slide .sethstha-slide-title {
+  text-decoration: none;
+  color: #212529;
+  font-weight: bold;
+  font-size: 21px;
+  margin-bottom: 10px;
+}
+.sethstha-slide .sethstha-slide-title:hover {
+  color: #3858e9;
+}
+.sethstha-slide .sethstha-slide-excerpt {
+  font-size: 14px;
+  line-height: 24px;
+  color: #868e96;
+}
+.sethstha-slide .sethstha-slide-date {
+  font-size: 14px;
+  font-style: italic;
+}
+
+.sethstha-slider-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  transform: translateY(-50%);
+  top: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  color: #fff;
+}
+.sethstha-slider-nav:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+.sethstha-slider-nav svg {
+  fill: #fff;
+}
+.sethstha-slider-nav--prev {
+  left: 10px;
+}
+.sethstha-slider-nav--next {
+  right: 10px;
+}
+
+.sethstha-pagination {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  z-index: 999;
+}
+
+.sethstha-pagination-indicator {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  background: #ccc;
+  border-radius: 100%;
+  cursor: pointer;
+}
+.sethstha-pagination-indicator.active {
+  background-color: #3858e9;
+}
+
+.sethstha-url-changer {
+  margin-top: 30px;
+}
+.sethstha-url-changer .sethstha-input-group {
+  display: flex;
+  gap: 20px;
+}
+.sethstha-url-changer .sethstha-error-msg {
+  display: none;
+}
+.sethstha-url-changer button {
+  font-size: 14px;
+  width: 300px;
+  background: #21759b;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.sethstha-url-changer button:hover {
+  background: #2a95c5;
+}
+.sethstha-url-changer.error .sethstha-error-msg {
+  display: block;
+  font-size: 12px;
+  color: red;
+}
+.sethstha-url-changer.error input {
+  border: 1px solid red;
+}
+
+.sethstha-loader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  background: #f8f8f8;
+}
+
+.sethstha-spinner {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.sethstha-spinner:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #21759b;
+  border-color: #21759b transparent #21759b transparent;
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 768px) {
+  .sethstha-slide {
+    flex-direction: column;
+  }
+}
+
+/*# sourceMappingURL=style-index.css.map*/
