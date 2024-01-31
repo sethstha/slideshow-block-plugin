@@ -226,14 +226,8 @@
 	}
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
 	.sethstha-slide {
-		width: 50%;
-	}
-}
-
-@media (min-width: 1024px) {
-	.sethstha-slide {
-		width: 33.333%;
+		flex-direction: column;
 	}
 }
