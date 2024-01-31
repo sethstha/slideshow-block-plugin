@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Sethstha Posts Slideshow Demo</title>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="../build/style-index.css" />
+		<link rel="stylesheet" href="dashicons.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="sethstha-demo-title">Sethstha Post Slideshow Demo</h1>
+			<div
+				id="sethstha-slider-wrapper"
+				class="sethstha-slider-wrapper"
+				data-autoplay="false"
+				data-delay="3000"
+				data-showexcerpt="true"
+				data-url="wptavern.com"
+			>
+				<div class="sethstha-slider">
+					<div id="sethstha-slides" class="sethstha-slides"></div>
+					<div id="sethstha-navigation"></div>
+					<div id="sethstha-pagination" class="sethstha-pagination"></div>
+				</div>
+				<div id="sethstha-url-changer" class="sethstha-url-changer">
+					<p class="sethstha-error-msg">
+						Please input valid url like wptavern.com
+					</p>
+					<div class="sethstha-input-group">
+						<input id="sethstha-url" type="url" value="wptavern.com" /><button
+							id="sethstha-url-btn"
+							type="button"
+						>
+							Fetch Post From This Url
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../build/view.js"></script>
+	</body>
+</html>
