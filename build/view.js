@@ -252,7 +252,6 @@ document.addEventListener('DOMContentLoaded', function () {
       slidesLength = slides.length;
       slides.forEach(slide => renderSlidesHTML(slide));
       renderPaginationHTML(slides.length);
-      configureNavigation();
       // Add to local storage for cache
       localStorage.setItem(slider.sliderId, JSON.stringify(slides));
     } catch (error) {
@@ -262,7 +261,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Renders posts from remote
   const renderSliderFromRemote = () => {
-    console.log('remote data called');
     getSliderData().then(data => {
       renderSliderHTML(data);
     });
@@ -281,6 +279,7 @@ document.addEventListener('DOMContentLoaded', function () {
     init();
     renderSliderFromCache();
     renderSliderFromRemote();
+    configureNavigation();
   };
   const changeURL = url => {
     remoteURL = url;
